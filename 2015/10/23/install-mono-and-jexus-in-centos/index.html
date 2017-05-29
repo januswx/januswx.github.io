@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="CnetOS下安装Mono与Jexus"/>
+
+
+
+
+  <meta name="keywords" content="Mono,Linux,Jexus,CentOS," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2015/10/23/install-mono-and-jexus-in-centos/"/>
+
+
+<meta name="description" content="安装CentOS系统请google教程，这里不多介绍。 更新系统1$ yum -y update 安装Mono编译所需要的库1$ yum -y install gcc gcc-c++ bison pkgconfig glib2-devel gettext make libpng-devel libjpeg-devel libtiff-devel libexif-devel giflib-devel">
+<meta name="keywords" content="Mono,Linux,Jexus,CentOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CnetOS下安装Mono与Jexus">
+<meta property="og:url" content="http://yoursite.com/2015/10/23/install-mono-and-jexus-in-centos/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="安装CentOS系统请google教程，这里不多介绍。 更新系统1$ yum -y update 安装Mono编译所需要的库1$ yum -y install gcc gcc-c++ bison pkgconfig glib2-devel gettext make libpng-devel libjpeg-devel libtiff-devel libexif-devel giflib-devel">
+<meta property="og:updated_time" content="2016-06-09T15:15:33.659Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CnetOS下安装Mono与Jexus">
+<meta name="twitter:description" content="安装CentOS系统请google教程，这里不多介绍。 更新系统1$ yum -y update 安装Mono编译所需要的库1$ yum -y install gcc gcc-c++ bison pkgconfig glib2-devel gettext make libpng-devel libjpeg-devel libtiff-devel libexif-devel giflib-devel">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> CnetOS下安装Mono与Jexus · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          CnetOS下安装Mono与Jexus
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015年10月23日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装CentOS系统"><span class="toc-text">安装CentOS系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新系统"><span class="toc-text">更新系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Mono编译所需要的库"><span class="toc-text">安装Mono编译所需要的库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Mono需要的的GDI-兼容API的库Libgdiplus"><span class="toc-text">安装Mono需要的的GDI+兼容API的库Libgdiplus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Mono"><span class="toc-text">安装Mono</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Jexus"><span class="toc-text">安装Jexus</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="安装CentOS系统"><a href="#安装CentOS系统" class="headerlink" title="安装CentOS系统"></a>安装CentOS系统</h2><p>请google教程，这里不多介绍。</p>
+<h2 id="更新系统"><a href="#更新系统" class="headerlink" title="更新系统"></a>更新系统</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yum -y update</div></pre></td></tr></table></figure>
+<h2 id="安装Mono编译所需要的库"><a href="#安装Mono编译所需要的库" class="headerlink" title="安装Mono编译所需要的库"></a>安装Mono编译所需要的库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ yum -y install gcc gcc-c++ bison pkgconfig glib2-devel gettext make libpng-devel libjpeg-devel libtiff-devel libexif-devel giflib-devel libX11-devel freetype-devel fontconfig-devel  cairo-devel</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装Mono需要的的GDI-兼容API的库Libgdiplus"><a href="#安装Mono需要的的GDI-兼容API的库Libgdiplus" class="headerlink" title="安装Mono需要的的GDI+兼容API的库Libgdiplus"></a>安装Mono需要的的GDI+兼容API的库Libgdiplus</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src/ </div><div class="line">$ wget http://download.mono-project.com/sources/libgdiplus/libgdiplus-3.12.tar.gz </div><div class="line">$ tar -zxvf libgdiplus-3.12.tar.gz  </div><div class="line">$ <span class="built_in">cd</span> libgdiplus-3.12 </div><div class="line">$ ./configure --prefix=/usr </div><div class="line">$ make </div><div class="line">$ make install</div></pre></td></tr></table></figure>
+<h2 id="安装Mono"><a href="#安装Mono" class="headerlink" title="安装Mono"></a>安装Mono</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src </div><div class="line">$ wget http://download.mono-project.com/sources/mono/mono-4.2.1.60.tar.bz2</div><div class="line">$ tar -jxvf mono-4.2.1.60.tar.bz2 </div><div class="line">$ <span class="built_in">cd</span> mono-4.2.1.60 </div><div class="line">$ ./configure --prefix=/usr </div><div class="line">$ make </div><div class="line">$ make install</div></pre></td></tr></table></figure>
+<p>安装完成后，输入 <strong>mono -V</strong> 如有mono版本信息,则安装成功。</p>
+<h2 id="安装Jexus"><a href="#安装Jexus" class="headerlink" title="安装Jexus"></a>安装Jexus</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/src </div><div class="line">$ wget http://www.linuxdot.net/down/jexus-5.6.3.tar.gz </div><div class="line">$ tar -zxvf jexus-5.6.3.tar.gz </div><div class="line">$ <span class="built_in">cd</span> jexus-5.6.3 </div><div class="line">$ ./install</div></pre></td></tr></table></figure>
+<p>Jexus安装在/usr/jexus/中，安装完成后启动Jexus</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ./jws start</div></pre></td></tr></table></figure>
+<p>设置Jexus开机自启动在 /etc/rc.local中添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ /usr/jexus/jws start</div></pre></td></tr></table></figure>
+<p>在浏览器中输入 <strong> <a href="http://IP地址/info" target="_blank" rel="external">http://IP地址/info</a> </strong> ，能够看到相关信息就安装成功了。<br>备注:如果不能看到相关信息，则可能是防火墙的原因,可以用下面的命令关闭防火墙进行测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ systemctl stop firewalld</div></pre></td></tr></table></figure>
+<p>CentOs升级到7之后，发现无法使用iptables控制Linuxs的端口，而是使用firewalld代替了原来的iptables。下面的命令可以开放Linux端口：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ firewall-cmd --zone=public --add-port=80/tcp --permanent</div></pre></td></tr></table></figure>
+<p>命令含义如下：<br>zone : 作用域<br>add-port=80/tcp : 添加端口，格式为端口/通讯协议<br>permanent : 永久生效，没有此参数重启后失效</p>
+<p>使用如下命令重启防火墙，使配置生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ firewall-cmd --reload</div></pre></td></tr></table></figure>
+<p>参考资料：</p>
+<p><a href="http://stackoverflow.com/questions/24729024/centos-7-open-firewall-port" target="_blank" rel="external">http://stackoverflow.com/questions/24729024/centos-7-open-firewall-port</a></p>
+<p><a href="http://www.cnblogs.com/shanyou/archive/2012/01/07/2315982.html" target="_blank" rel="external">http://www.cnblogs.com/shanyou/archive/2012/01/07/2315982.html</a></p>
+<p><a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html" target="_blank" rel="external">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/sec-Using_Firewalls.html</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Mono/">Mono</a>
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+              <a href="/tags/Jexus/">Jexus</a>
+            
+              <a href="/tags/CentOS/">CentOS</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/11/19/using-xheditor-with-layer/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">在layer弹出层中使用xheditor编辑器</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/10/21/hello-world/">
+        <span class="next-text nav-default">Hello World</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

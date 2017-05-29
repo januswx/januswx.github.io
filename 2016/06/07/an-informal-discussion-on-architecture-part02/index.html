@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（二）：认识概念是理解架构的基础"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part02/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年2月26日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。专栏的目的是希望能抛出一些观点，并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第二篇，作者通过几个例子">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（二）：认识概念是理解架构的基础">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part02/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年2月26日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。专栏的目的是希望能抛出一些观点，并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第二篇，作者通过几个例子">
+<meta property="og:updated_time" content="2016-06-09T15:12:07.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（二）：认识概念是理解架构的基础">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年2月26日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。专栏的目的是希望能抛出一些观点，并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第二篇，作者通过几个例子">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（二）：认识概念是理解架构的基础 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（二）：认识概念是理解架构的基础
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#何为相？"><span class="toc-text">何为相？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#那究竟什么才是相？"><span class="toc-text">那究竟什么才是相？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为何需要这个作用？"><span class="toc-text">为何需要这个作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于抽象"><span class="toc-text">关于抽象</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part02" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年2月26日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。专栏的目的是希望能抛出一些观点，并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。</p>
+<p>本文是漫谈架构专栏的第二篇，作者通过几个例子，讨论了一下认识概念的误区，如何有效的去认识概念，明白概念背后的含义，以及如何利用对概念的理解，快速的进行学习。</p>
+<p>在前一篇文章中，我们讨论了什么是架构。事实上，这些基础概念对于做架构是非常重要的，大部分人对于每天都习以为常的概念，都自以为明白了，但实际上都是下意识的，并不是主动的认识。比如说“什么是桌子？”，做培训的时候，我经常拿这个例子来问大家，回答千奇百怪。这实际上就导致了做架构的时候，不同角色的沟通会出很多问题，那么结果也就可想而知了。</p>
+<p>如前一篇所说，<strong>架构实际上解决的是人的问题</strong> ，而概念是人认识这个世界的基础，自然概念的认识就非常的重要。这篇文章尝试讨论一下，如何去认识概念。当然这篇不是语言学的文章，我这里所讨论的，和语言学可能不太一样，如果大家对语言学感兴趣，也可以去参考一下。</p>
+<p>首先我要先声明一下，这一系列的文章，都是以人的认识为主体去讨论的，解决的都是人的问题，任何没有具体申明的部分，都隐含这一背景，以免大家误解。</p>
+<p>概念也属于人认识这个世界并用来沟通的手段，包括“概念”这个概念，也是一样的。在古代，不叫“概念”，称之为“名相”。</p>
+<a id="more"></a>
+<h2 id="何为相？"><a href="#何为相？" class="headerlink" title="何为相？"></a>何为相？</h2><p>一般我们认为：看到一个东西，比方说杯子，“杯子”就是一个名字，指代的看到的东西就是相，就是事物的相状。我们一听到“杯子”这个词，脑海里就会浮现出一个杯子的形象。而“杯子”这个词，是用来指代的是这个相状的，叫做名。合起来就叫做“名相”。</p>
+<p>可是当我们把杯子打碎了的时候，我们还会称这个碎了的东西叫杯子吗？ 肯定不会，一般会叫“碎瓦片”，如果我们把碎瓦片磨碎了呢，名字又变了，叫做“沙子”。这就奇怪了，同样一个东西，怎么会变出这么多的名字出来？</p>
+<h2 id="那究竟什么才是相？"><a href="#那究竟什么才是相？" class="headerlink" title="那究竟什么才是相？"></a>那究竟什么才是相？</h2><p>实际上“相“表达的不是一个具体的东西，如上面所提的一个瓷器杯子，并不是指这个瓷器，而是这个瓷器所起的一个作用：一手可握，敞口（一般不超过底的大小，太大口就叫碗了），并且内部有一个空间可乘东西的这么一个作用。并不是指这个瓷器本身。这也是为什么我们从电视上看到一个人拿杯子的时候，我们知道这个是杯子。但是实际上我们看到的都是光影而已。所以说相实际上代表的是这个作用，并不是具体的某个东西，而名是用来标识这个作用的，用来交流的。</p>
+<h2 id="为何需要这个作用？"><a href="#为何需要这个作用？" class="headerlink" title="为何需要这个作用？"></a>为何需要这个作用？</h2><p>这个作用其实是为了解决“人需要一个可单手持握，但是希望避免直接接触所盛物体”这个问题。</p>
+<p>所以说，每个概念实际上所解决的，还是人遇到的某个特定的问题，我们把解决问题的解决方案，给定了一个名字，这个名字就是对应的某个特定的概念。对于概念这个词本身，为了统一指代这些名字，我们称起这类作用的名字称为“概念”。我们上次讨论的“架构”也是是同样的一个特定概念，这里不再详述。同样，什么是“建筑”？ “建筑”实际上解决的就是“人需要独占的空间，并还能够比较流畅的和外部世界沟通”的问题。</p>
+<p>再拿前面的“桌子”来举例，什么叫“桌子”？ 很多人回答，四条腿，或者说有腿，有一个平面，等等，柜子不也是这样吗？为什么我们看到柜子，不会认为是桌子呢？即使我们放在柜子上吃饭，我们看到仍然会问，为什么在柜子上吃饭？ 不会叫桌子。如果明白了上面的道理，就很简单了，桌子实际上是为了解决人坐在椅子上，手还能够支撑在一个平面上继续开展活动的问题，一般会和椅子配对出现。坐在椅子上工作，对着柜子有一个很严重的问题–不知道大家试过没有–就是腿无法展开的问题。当这么坐着超过半小时就知道是什么痛苦了。所以桌子的平面下方一定会有一个足够容纳膝部和小腿的空间，来解决这个问题。解决了这些问题的装置，才能称之为桌子。</p>
+<p>类似也可以定义出来椅子，由此可见，桌子和椅子的高度也是有限定的，都是是解决人的问题，要符合人的身高：椅子的高度和深度，必须符合小腿和大腿的长度；椅背的高度要配合脊柱的高度；桌子的高度要配合小腿和脊柱的高度之和；成人和小孩的自然也就有区别了。这又变成生理学了，事实上要做好桌子和椅子，必须要理解人的生理结构，才能正确的理解桌子和椅子的概念。</p>
+<p>同理，为何我们可以在不同的语言间进行翻译，是因为虽然语言不同，但是人类所面临的的问题是一样的，所使用的名不同而已。对于不同的动物之间的翻译也是同理。</p>
+<h2 id="关于抽象"><a href="#关于抽象" class="headerlink" title="关于抽象"></a>关于抽象</h2><p>在讨论桌子这个概念的过程中，很多人会提出抽象这个概念，认为定义桌子实际上就是抽象的一个过程。这里，我觉得有必要要澄清一下抽象这个概念，我认为这个里面有误解。我注意到，在做架构师的群体中，不谈抽象好像就不是一个合格的架构师。</p>
+<p>抽象这个词代表的含义，实际上是把不同的概念的相似的部分合并在一起，形成一个新的概念。这个里面问题很多：首先“相似的部分”在不同的人看来，并不一定那么相似；其次，抽象之后形成的是一个新的概念，和原来那个概念并不一样，所解决的问题也不一样。所以我们不能用抽象来定义一个事物，抽象实际上是一个分类的过程，完全是另一码事。再举一个例子，杯子和容器，很多人认为容器是杯子的抽象，但是实际上杯子是杯子，容器是容器，它们所解决的问题是不一样的。当我们需要解决装东西的问题的时候，会说容器；当我们需要解决单手持握要装东西的时候，会说要一个杯子。</p>
+<p>回过头来，根据架构的定义，要做好架构所首先必须具备的能力，就是能够正确的认识概念，能够发现概念背后所代表的问题，进而才能够认识目标领域所需要解决的问题，这样才能够为做好架构打好基础。事实上，这一能力，在任何一个领域都是适用的，比如我们如果想要学习一项新的技术，如Hibernate、Spring、PhotoShop、WWW、Internet等等，如果知道这些概念所要解决的问题，学习这些新的技术或者概念就会如虎添翼，快速的入手；学习一个新的领域，也会非常的快速有效；使用这些概念来解释问题，甚至发明新的概念都是很容易的事。为什么强调这个呢，因为做架构的时候，很多时候都是在一个新的领域解决问题，必须要快速进入并掌握这个领域，然后才能够正确的解决问题。</p>
+<p>以上通过几个例子，讨论了一下认识概念的误区，如何有效的去认识概念，明白概念背后的含义，以及如何利用对概念的理解，快速的进行学习。掌握了这些原则，会有利于帮助我们在架构阶段，快速的识别和定位问题。</p>
+<p>下一篇我们会来讨论一下，如何快速的定位和识别问题，这是架构的起始。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part03/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（三）：如何做好架构之识别问题</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part01/">
+        <span class="next-text nav-default">架构漫谈（一）：什么是架构？</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

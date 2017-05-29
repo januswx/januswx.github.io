@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="If you don't learn to think when you are young,you may never learn."/>
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/"/>
+
+
+<meta name="description" content="If you don&apos;t learn to think when you are young,you may never learn.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Learn2think">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="If you don&apos;t learn to think when you are young,you may never learn.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learn2think">
+<meta name="twitter:description" content="If you don&apos;t learn to think when you are young,you may never learn.">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts">
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/29/web-config-add-mime-type/">在web.config中添加MIME类型</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月29日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>今天在开发asp.net mvc程序中，通过调试工具，发现字体（xxx.woff）文件不能正常加载，原来是IIS中是没有类型为.woff的MIME类型的，我们可以在IIS的MIME类型管理中添加.woff类型。但是为了网站配置的通用性，我们也可以把MIME类型添加在项目的web.config中，这样的话，当我们把项目部署到不同的服务器上时，就不用总是需要在IIS中添加MIME类型了。</p>
+<p>MIME配置在system.webServer节点的staticContent节点中，设置mimeMap节点中的fileExtension文件扩展名属性和mimeType这个MIME类型属性。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">system.webServer</span>&gt;</span>    </div><div class="line">	<span class="tag">&lt;<span class="name">staticContent</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">remove</span> <span class="attr">fileExtension</span>=<span class="string">".woff"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">mimeMap</span> <span class="attr">fileExtension</span>=<span class="string">".woff"</span> <span class="attr">mimeType</span>=<span class="string">"font/x-font-woff"</span> /&gt;</span>     </div><div class="line">		<span class="tag">&lt;/<span class="name">staticContent</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">system.webServer</span>&gt;</span></div></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/2016/06/29/web-config-add-mime-type/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/29/jquery-load-page/">JQuery load方法加载页面内容问题</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月29日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>有两个页面，分别为layout.html和welcome.html，在layout.html中引用了jquery.js，在welcome.html页面中也引用了jquery.js，通过$(“#divId”).load(welcome.html)方法加载welcome页面，当执行load方法时，使用fiddler进行抓包时，发现welcome.html中的jquery在页面加载时后面被加上了随机数。按照我的想法，jquery.js既然加载了一次，welcome.html中应该从浏览器的缓存中加载，不应该重新从服务器请求。</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>JQuery在使用load方法加载页面时，会在目标页面的资源（包括js，css）后面加上一个随机数，来重新加载目标页面中的资源，以确保所有请求的资源是最新的，并且能够单独使用。</p>
+          <div class="read-more">
+            <a href="/2016/06/29/jquery-load-page/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/11/drawing-graphs-using-graphviz/">使用graphviz进行绘图</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月11日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><p>graphviz是一个图形可视化软件，这是贝尔实验室开发的一个开源的工具包，软件地址在<a href="http://www.graphviz.org/" target="_blank" rel="external">这里</a>,它使用dot作为脚本语言，然后使用布局引擎来解析此脚本，并完成自动布局。graphviz提供丰富的导出格式，如常用的图片格式，SVG，PDF格式等。</p>
+<p>graphviz的布局器包含：</p>
+<pre><code>- dot布局，主要用于有向图，是默认的布局。
+- 基于spring-model(又称force-based)算法的neato。
+- 径向布局twopi。
+- 圆环布局circo。
+- 无向图fdp。
+</code></pre><p>graphviz包含3个元素，图（graphs），节点（nodes）和边（edges）。每个元素都可以具有各自的属性，用来定义字体，样式，颜色，形状等。graphviz画图步骤如下：</p>
+<pre><code>1. 定义图的名称。
+2. 添加节点和边，并指定样式。
+3. 使用布局器进行绘制。
+</code></pre>
+          <div class="read-more">
+            <a href="/2016/06/11/drawing-graphs-using-graphviz/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/10/my-tools-in-common-usage/">个人常用软件收藏</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月10日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>我们都有过这样的经历，重装过电脑后，都要安装自己平时经常使用的工具，在这里，对常用的一些软件工具进行汇总，并定期更新。</p>
+          <div class="read-more">
+            <a href="/2016/06/10/my-tools-in-common-usage/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part09/">架构漫谈（九）：理清技术、业务和架构的关系</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part09" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年4月12日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第九篇，作者Kevin以钻木取火为切入点，深入介绍了技术、业务和架构之间的关系。正如作者所说，技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获取更大更好的利益。</p>
+<p>某天和朋友吃饭正好聊到这个话题。作为架构师或者做技术的人，在开发软件时，我们基本上就是在<strong>扮演上帝的角色</strong>：我们不但要创建出一个个的程序，还要让这些程序能够脱离我们在硬件上独立运行，以便为这个程序所服务的群体提供服务。当这个程序出现问题甚至bug的时候，我们还得扮演牧师的角色去修复这些问题。这不正是一个程序的社会吗？ 和人类社会的演变何其相似！那么我们自然也能够拿人类演变的历史来指导软件开发工作，以避免再经历一次像人类演变发展那么痛苦的过程了。由此我们也可以看出，架构师和程序员们都在扮演着多么重要的角色，如果还在解决自己的问题，怎么扮演好上帝这个角色？</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part09/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part08/">架构漫谈（八）：从架构的角度看如何写好代码</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part08" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年4月5日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p><strong>本文是漫谈架构专栏的第八篇</strong>，作者Kevin举例介绍了如何写好代码。当我们有了好的架构，那就需要考虑如何将架构落地，而这个时候，代码就显得无比重要了！千万不要让代码成为架构扩展的瓶颈。文中作者提到了代码架构，细细品味吧。</p>
+<p>在第六篇文章中，我们得出一个结论，软件架构实际上包括了：代码架构，以及承载代码运行的硬件部署架构。实际上，硬件部署架构最终还是由代码的架构来决定。因为代码架构不合理，是无法把一个运行单元分拆出多个来的，那么硬件架构能分拆的就非常的有限，整个系统最终很难长的更大。</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part08/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part07/">架构漫谈（七）：不要空设架构师这个职位，给他实权</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part07" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月30日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第七篇，作者Kevin探讨了什么是架构师、成为架构师的前提条件、如何发现“是谁的问题”、架构师的权利和义务等话题。正如作者所说，<strong>架构师必须是一个组织的领导人</strong>，有权利调动这个组织的架构，才能够更好的发挥架构师的作用，更好的把利益的调整落到实处。</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part07/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part06/">架构漫谈（六）：软件架构到底是要解决什么问题？</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part06" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月23日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第六篇，作者Kevin继续沿着前几篇文章的思路，探讨了软件架构为什么要有软件架构，进而再去解释什么是软件架构。这和最近网上疯传的黄金圆环（Why-How-What）思路非常贴合。</p>
+<p>前一篇文章简述了什么是软件。那么什么是软件架构呢？按照惯例，我们来看看是什么问题，是谁的问题。</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part06/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part05/">架构漫谈（五）：什么是软件</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part05" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月16日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p><strong>本文是漫谈架构专栏的第五篇</strong>，作者将会从自己的认知角度再次反思什么是软件，文中作者探讨了软件发展火热的根本原因以及软件扮演的角色等问题。如前几天一位架构师所说，我们并不缺架构实践，而是缺少对于架构的反思，希望这系列文章能帮你重新理解架构，重新认识软件。</p>
+<p>前面通过四篇文章，把什么是架构，如何做好架构等必要的概念澄清了一下。这些概念对于在各种不同的领域都应该也是有用的，需要读者自行思考，并应用到自己所在的领域中。在这篇文章开始，我们用同样的思考，来看看软件是怎么回事，以及如何运用架构思维，更好的设计和实现软件。</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part05/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2016/06/07/an-informal-discussion-on-architecture-part04/">架构漫谈（四）：如何做好架构之架构切分</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part04" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月9日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第四篇，作者将会介绍架构的切分，并直戳切分的本质其实就是利益的调整。文中作者将会讨论为什么需要切分、切分的原则、切分与建模、切分的输出和组织架构等问题。欢迎阅读和反馈。</p>
+<p>前一篇已经讲了如何识别问题。在识别出是谁的问题之后，会发现，在大部分情况下，问题都迎刃而解，不需要做额外的动作。很多时候问题的产生都是因为沟通的误解，或者主观上有很多不必要的利益诉求导致的。但是总还有一部分确实是有问题的，需要做调整，那么就必须要有所动作，做相应的调整。这个调整就是架构的切分。</p>
+          <div class="read-more">
+            <a href="/2016/06/07/an-informal-discussion-on-architecture-part04/" class="read-more-link">阅读更多</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    
+    
+      <a class="next" href="/page/2/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+          </div>
+          
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

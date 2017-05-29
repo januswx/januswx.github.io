@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（三）：如何做好架构之识别问题"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part03/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年3月2日 按照之前架构的定义，做好架构首先需要做的就是识别出需要解决的问题。一般来说，如果把真正的问题找到，那么问题就已经解决了80%了。这个能力基本上就决定了架构师的水平。 那么面对问题有哪些困难呢?我们先看一则笑话。女主人公：老公，把袋子里的土豆切一半下锅。结果老公是把袋子里的每个土豆都削了一半，然后下锅。 当然很多人会说，这个是沟通问题，然后一笑了之">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（三）：如何做好架构之识别问题">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part03/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年3月2日 按照之前架构的定义，做好架构首先需要做的就是识别出需要解决的问题。一般来说，如果把真正的问题找到，那么问题就已经解决了80%了。这个能力基本上就决定了架构师的水平。 那么面对问题有哪些困难呢?我们先看一则笑话。女主人公：老公，把袋子里的土豆切一半下锅。结果老公是把袋子里的每个土豆都削了一半，然后下锅。 当然很多人会说，这个是沟通问题，然后一笑了之">
+<meta property="og:updated_time" content="2016-06-09T15:12:43.880Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（三）：如何做好架构之识别问题">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年3月2日 按照之前架构的定义，做好架构首先需要做的就是识别出需要解决的问题。一般来说，如果把真正的问题找到，那么问题就已经解决了80%了。这个能力基本上就决定了架构师的水平。 那么面对问题有哪些困难呢?我们先看一则笑话。女主人公：老公，把袋子里的土豆切一半下锅。结果老公是把袋子里的每个土豆都削了一半，然后下锅。 当然很多人会说，这个是沟通问题，然后一笑了之">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（三）：如何做好架构之识别问题 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（三）：如何做好架构之识别问题
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#那么面对问题有哪些困难呢"><span class="toc-text">那么面对问题有哪些困难呢?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#那么如何识别问题呢"><span class="toc-text">那么如何识别问题呢?</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part03" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月2日</p>
+<p>按照之前架构的定义，做好架构首先需要做的就是识别出需要解决的问题。一般来说，如果把真正的问题找到，那么问题就已经解决了80%了。这个能力基本上就决定了架构师的水平。</p>
+<h2 id="那么面对问题有哪些困难呢"><a href="#那么面对问题有哪些困难呢" class="headerlink" title="那么面对问题有哪些困难呢?"></a>那么面对问题有哪些困难呢?</h2><p>我们先看一则笑话。女主人公：老公，把袋子里的土豆切一半下锅。结果老公是把袋子里的每个土豆都削了一半，然后下锅。</p>
+<p>当然很多人会说，这个是沟通问题，然后一笑了之。其实，出现这个现象是由于我们大部分时候过于关注解决问题，急于完成自己的工作，而不关心“真正的问题是什么”而造成的。当我们去解决一个问题的时候，一定要先把问题搞清楚。这也是我为什么要单独写一篇文章讲这个的原因。去看看软件开发工作者的时间分配也可以看出，大家大部分时间花在讨论解决方案和实现的细节上，基本都不会花时间去想“问题是什么”。或者即使想了一点点，也是一闪而过，凭自己的直觉下判断。只有真正投入思考问题是什么的工程师，才可能会真正的成长为架构师</p>
+<a id="more"></a>
+<p>以这个笑话为例，看看在我们处理问题的时候，都会犯什么样的错误：</p>
+<ol>
+<li>被告知要处理一个问题，但是交过来的实际上是一个解决方案，不是问题本身 </li>
+<li>被告知要处理一个问题，直接通过直觉就有了一个解决方案，马上考虑解决方案如何落地，或者有几种解决方案，选哪个合适</li>
+</ol>
+<h2 id="那么如何识别问题呢"><a href="#那么如何识别问题呢" class="headerlink" title="那么如何识别问题呢?"></a>那么如何识别问题呢?</h2><p>所有的概念基本都有一个很大的问题，就是缺乏主语。而我们大家都心照不宣的忽略这个主语，沟通的时候也都以为大家都懂得对方说的主语是谁，结果大家都一起犯错误。识别问题的一个最大的前提就是要搞清楚：是谁的问题。这个搞清楚了，问题的边界也就跟着确定了，再去讨论问题才有意义。</p>
+<p>以上面切土豆的例子来分析：</p>
+<ol>
+<li>女主人提出一个问题，要切土豆下锅煮。 </li>
+<li>男主人有一个问题，女主人交代了自己必须要完成的一个任务。</li>
+</ol>
+<p>每个人都是优先处理自己的问题，自然就选择了2，完成了这个任务。这也是大部分软件工程师处理的方式，以自己认为对的方式完成自己的问题，没什么不对啊，也难怪能得到我们的共鸣。这个里面犯的错误是什么呢?</p>
+<ol>
+<li>女主人公提出的实际上是解决方案，而不是烧土豆这个问题本身。女主人当时执行这个解决方案可能有困难，就把执行解决方案作为一个任务，委托给了男主人。</li>
+<li>男主人得到了一个任务，尽心尽职地把这个任务完成了。</li>
+</ol>
+<p>最后的结果是什么呢，每个人都做了很多工作，每个人都认为自己做的是对的，因此没有一个人对结果满意。因为真正的问题没有被发现，自然也就没有被解决，那么后续还得收拾残局，还要继续解决问题。事实上自己的工作并没有完成，反而更多了。把原因归结为沟通问题也是可以的，但对于解决问题似乎并没有太多的帮助。因为要改进沟通，这也是一个大问题。搞明白目标问题“是谁的问题，是什么问题”，当然也是需要沟通的。为了帮助自己更快的搞明白，首先要做的事是问正确的问题。架构师应该问的第一个正确的问题就是：目标问题是谁的问题。</p>
+<p>当我们处理问题的时候，如果发现自己正在致力于把自己的工作完成，要马上警惕起来，因为这样下去会演变成没有ownership的工作态度。在面对概念的时候，也会不求甚解，最终会导致没有真正的理解概念。</p>
+<p>作为软件工程师或者架构师，我们大部分时候是要去解决别人的问题，“别人”是谁，是值得好好思考的。在这个故事里面，男主人要解决的，实际上是这个家庭晚餐需要吃土豆的问题，目标问题的主体实际上是这个家庭的成员。</p>
+<p>明白了问题的主体，这个主体就自然会带来很多边界约束，比如土豆是要吃的，要给人吃的，而且还是要给自己的家人吃的。“切土豆下锅”这个问题，因为识别了问题的主体，自然而然的就附带了这么多的信息。后续如何煮，是否放高压锅煮，放多少水，煮多长时间等等，就自然而然能够问出来其他问题来了，说不定还能够识别出来，女主人给的这个解决方案可能是有问题的。这个时候才算是真正的明白了问题。可以想象，这样下去最后的结果一定是大家都满意的，因为真正的问题解决了。只有真正明白了是谁的问题，才能够真正地完成自己的任务，真正地把自己的问题解决掉，而不是反过来。</p>
+<p>由上面的分析可以看出，找出问题的主体，是做架构的首要问题。这也是我一再强调的，我们要解决的问题，一定都是人的问题。更进一步，架构师要解决的，基本都是别人的问题，不是自己的问题。再进一步，我们一定要明白，任何找上架构师的问题，绝对都不是真正的问题。为什么呢? 因为如果是真正的问题的话，提问题过来的人肯定都能够自己解决了，不需要找架构师。架构师都要有这个自觉：发现问题永远都比解决问题来的更加重要。</p>
+<p>当问题的主体离架构师越远，就会让找出问题主体的过程越加困难，我们再举一个软件行业比较熟悉的例子：用户给产品经理提出要求，想要一把锤子。这是典型的拿解决方案作为问题的。真正的问题的主体是谁，是用户还是设计师还是施工队? 如果产品经理当成是自己的问题，那么毫无疑问就给了锤子了。</p>
+<p>我们需要识别：用户究竟是二传手，还是问题的真正主体。如果是设计师，那么问题的边界就变成了设计师的问题，如果是施工队，那么问题就变成了施工队的问题，如果是用户，那么就要看看用户到底有什么困难，绝对不是要一个锤子这么简单。这也说明了，问题的主体对问题的边界确定有多么的重要。</p>
+<p>当明白了问题的主体，我们才可能真正的认识问题是什么。因为问题的主体是问题的隐含边界，边界不确定下来，问题就是不确定的。一旦确定了主体，剩下的就是去搞明白主体有哪些问题。这个就比较直接了，常用的方式就是直接面对主体进行访谈，深入到主体的工作生活当中，体验并感受这些问题，甚至通过数据的反馈来定位问题。这个大家就比较熟悉了，我就不展开了。</p>
+<p>一般来说，从问题暴露的点，一点点去溯源查找，一定会找出来谁的问题，以及是什么问题。最坏情况就是当我们时间或者能力有限，实在是无法定位出是谁的问题的时候，比如系统出故障，也就意味着我们无法根本解决问题。这时最好的办法就是去降低问题发生所带来的成本，尽量去隔离问题影响的范围。给我留出时间和空间去识别真正的问题。</p>
+<p>总结一下，要正确的认识问题，需要问两个问题：</p>
+<ol>
+<li>这是谁的问题？ </li>
+<li>有什么问题？</li>
+</ol>
+<p>当得到的回答是支支吾吾的时候，我们就知道正确的方向在哪儿，以及需要做哪些事了。以我的经验，问题1会花比较多的时间，也是支支吾吾最多的地方，因为架构要解决的问题都是人的问题。但是一旦确定了答案，问题2就会变得非常容易。可以这样说，架构师的能力大部分会体现在问题1的识别上。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part04/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（四）：如何做好架构之架构切分</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part02/">
+        <span class="next-text nav-default">架构漫谈（二）：认识概念是理解架构的基础</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

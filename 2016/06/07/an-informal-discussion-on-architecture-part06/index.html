@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（六）：软件架构到底是要解决什么问题？"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part06/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年3月23日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第六篇，作者Kevin继续沿着前几篇文章的思路，探讨了软件架构为什么要有软件架构，进而再去解释什么是软件架构。这和最近网上疯传的黄金圆环（Why-How-Wha">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（六）：软件架构到底是要解决什么问题？">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part06/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年3月23日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第六篇，作者Kevin继续沿着前几篇文章的思路，探讨了软件架构为什么要有软件架构，进而再去解释什么是软件架构。这和最近网上疯传的黄金圆环（Why-How-Wha">
+<meta property="og:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part06/zh/resources/6598100009111950026.jpg">
+<meta property="og:updated_time" content="2016-06-09T15:51:31.406Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（六）：软件架构到底是要解决什么问题？">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年3月23日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第六篇，作者Kevin继续沿着前几篇文章的思路，探讨了软件架构为什么要有软件架构，进而再去解释什么是软件架构。这和最近网上疯传的黄金圆环（Why-How-Wha">
+<meta name="twitter:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part06/zh/resources/6598100009111950026.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（六）：软件架构到底是要解决什么问题？ · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（六）：软件架构到底是要解决什么问题？
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#要解决谁的问题？"><span class="toc-text">要解决谁的问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、业务问题"><span class="toc-text">一、业务问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、计算机问题"><span class="toc-text">二、计算机问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分别是谁的问题呢？"><span class="toc-text">分别是谁的问题呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分别有什么问题？"><span class="toc-text">分别有什么问题？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析问题"><span class="toc-text">分析问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#会生成哪些架构"><span class="toc-text">会生成哪些架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是软件架构"><span class="toc-text">什么是软件架构</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part06" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月23日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第六篇，作者Kevin继续沿着前几篇文章的思路，探讨了软件架构为什么要有软件架构，进而再去解释什么是软件架构。这和最近网上疯传的黄金圆环（Why-How-What）思路非常贴合。</p>
+<p>前一篇文章简述了什么是软件。那么什么是软件架构呢？按照惯例，我们来看看是什么问题，是谁的问题。</p>
+<a id="more"></a>
+<h2 id="要解决谁的问题？"><a href="#要解决谁的问题？" class="headerlink" title="要解决谁的问题？"></a>要解决谁的问题？</h2><p>如前所述，软件实际上就是把现实生活模拟到计算机中，并且软件是需要在计算机的硬件中运行起来的。要做到这一点需要解决两个问题：</p>
+<h3 id="一、业务问题"><a href="#一、业务问题" class="headerlink" title="一、业务问题"></a>一、业务问题</h3><p>具体的现实生活状态下，没有软件的时候，所解决的问题的主体是谁，解决的是什么问题，是如何解决，如何运作的？</p>
+<h3 id="二、计算机问题"><a href="#二、计算机问题" class="headerlink" title="二、计算机问题"></a>二、计算机问题</h3><ol>
+<li>如何把现实生活用软件来模拟？</li>
+<li>模拟出来的软件，需要哪些硬件设施才能够满足要求？ 并且当访问量越来越大的时候，软件能否支持硬件慢慢长大，性能线性扩展？</li>
+<li>因为硬件是可能会失效的，软件如何在硬件失效的情况下，仍然能够保证可用性，让用户能够不中断的访问软件提供的服务？</li>
+<li>怎么收集软件产生的数据，为下一阶段的工作提供依据？</li>
+</ol>
+<h2 id="分别是谁的问题呢？"><a href="#分别是谁的问题呢？" class="headerlink" title="分别是谁的问题呢？"></a>分别是谁的问题呢？</h2><ol>
+<li><p>业务的owner需要提升业务的效率，降低业务的成本，这是动机。这个实际上就是业务的问题，所以一般软件开发的出发点就在这里。</p>
+</li>
+<li><p>是软件工程师的问题，要解决业务owner把业务虚拟化的问题，并且要解决软件开发和运营的生命周期的问题。</p>
+</li>
+</ol>
+<p><img src="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part06/zh/resources/6598100009111950026.jpg" alt="img"></p>
+<h2 id="分别有什么问题？"><a href="#分别有什么问题？" class="headerlink" title="分别有什么问题？"></a>分别有什么问题？</h2><ol>
+<li>业务问题的本质，是业务所服务的对象的利益问题，明白了这个，就很容易搞清业务的概念和组织方式。再次强调一下，有了软件，可以降低业务的成本，没有软件的情况下，业务是一样跑的。如果只是为了跟风要用软件，说不定反而提高了成本，这个是采用软件之前首先要先搞清楚的。我们经常说软件和技术是业务的enabler，实际就是把原来成本很高的降到到了很低的程度而已，并不是有了什么新的业务。另外软件也不是降低业务成本的唯一方式。</li>
+<li>为了能够让软件很好的跑起来，软件工程师必须理解业务所服务的对象，他们的利益所在，即业务问题。业务面对这些问题是如何分拆解决的？ 涉及到了哪些概念？ 这些概念分别解决了哪些哪些问题？ 我们不能自己按照自己的理解，用自己的一套概念体系来表述。如果这么做的话，会导致两个问题：<ul>
+<li>业务无法和我们交流，因为他们无法明白我们所自己创建的概念，所以他们无法确认我们的理解是否正确。</li>
+<li>我们所表述的东西，并没有在实际生活中实践过，我们也不知道这些概念是否能够解决业务的问题。</li>
+</ul>
+</li>
+<li>软件工程师还必须要考虑，用什么样的硬件把软件跑起来，怎样跑得好，跑得快，并且可以随着业务的流量逐渐的长大？</li>
+</ol>
+<h2 id="分析问题"><a href="#分析问题" class="headerlink" title="分析问题"></a>分析问题</h2><p>对于2，在有限的时间下，软件工程师毫无疑问无法一个人去完成这么多事情，那么我们需要把所做的事情列出来，进行分析。</p>
+<p><strong>一、虚拟化业务需要完成这些事情：</strong></p>
+<ol>
+<li>学习业务知识，认识业务所涉及的stakeholders的核心利益述求，以及业务是如何分拆满足这些利益述求，并通过怎样的组织架构完成整个组织的核心利益的，以及业务运作的流程，涉及到哪些概念，有哪些权利和责任等。</li>
+<li>通过对业务知识的学习，针对这些概念所对应的权利和责任以及组织架构，对业务进行建模，把并把建模的结果用编程语言实现。这是业务的模型，通常是现实生活中利益斗争的结果，是非常稳定的。</li>
+<li>学习业务所参与的stakeholder是如何和业务打交道，并完成每个人的权利和义务的，并通过编程语言，结合业务模型实现这些打交道的沟通通道。这部分是变化最频繁的，属于组合关系。明白了这一点，对后续的实现非常有帮助。</li>
+<li>如何把业务运行的结果，持久化，并通过合适的手段把持久化后的数据，在合适的时间合适的地点加载出来。这部分和基础设施有关，变化可能也会比较频繁。</li>
+</ol>
+<p><strong>二、代码如何运营，需要完成这些事情：</strong></p>
+<ol>
+<li>需要多少硬件设备来满足访问的需求？</li>
+<li>代码要分成多少个组件部署到哪些硬件设备上？</li>
+<li>这些代码如何通过硬件设备互相连接在一起？</li>
+<li>当业务流量增大到超过一台机器的容量时，软件能否支持通过部署到新增机器上的方式，扩大对业务的支撑？</li>
+<li>当某台或某些硬件设备失效时，软件是否仍然能够不影响用户的访问。</li>
+<li>软件运行产生的数据，能否支持提取出来并加以分析，为下一轮的业务决策提供依据。</li>
+</ol>
+<p><strong>三、如果分成不同的角色来完成这些事情，就需要一个组织架构来组织代码的编写和运营，需要做哪些事情：</strong></p>
+<ol>
+<li>完成一和二所列的这些事情，需要哪些角色参与？</li>
+<li>这些事情基本都需要顺序的发生，如何保证信息在不同角色的传递过程中不会有损失？ 或者说即使有损失，也能快速纠正？</li>
+<li>这些角色之间是如何协调，才能共同完成虚拟化业务的需求？</li>
+</ol>
+<h2 id="会生成哪些架构"><a href="#会生成哪些架构" class="headerlink" title="会生成哪些架构"></a>会生成哪些架构</h2><p>如果业务足够简单，用户流量够小，时间要求也不急迫，那么一个人，一台机器就够了，这个时候一般不会去讨论架构的问题。当访问的流量越来越大，机器就会越来越多，代码的部署单元就会拆分的越来越多。</p>
+<p>同样就会需要越来越多的人来完成拆分出来的越来越多的部署单元，甚至同一个部署单元也需要分拆为多人合作完成。但是我们需要注意到一点，整个的概念体系，或者说业务的建模不会有任何的变化，还是完成同样的这些事情。唯一的区别就是量越来越大，超过了单个人和单个机器的容量，不断地增长。这样就会导致以下的架构：</p>
+<ol>
+<li>当流量越来越大，我们就会发现，软件所部属的机器就会开始按照树状的结构开始分拆，就会形成硬件的部属架构。这就是为什么会形成部署的分层。</li>
+<li>为了把业务在软件中实现并落地，需要前端人员、业务代码人员、存储层等不同技巧的人同时工作，需要切分成代码的架构。这就是为什么会形成代码的分层，形成代码的架构。当然，当这些角色由一个人来完成的时候，不一定会有代码架构，往往会比较乱。</li>
+<li>当参与的人员越来越多，就会形成开发体系的组织架构。因为代码开发的过程是一个连续的过程，会用流程来吧不同的角色串联起来，这就是软件工程。</li>
+<li>为了完成业务的工作，需要识别出来业务架构和支撑业务的组织架构，以及业务运作的流程。这是被虚拟化的业务架构和组织架构，也需要体现在代码中，保持和现实生活中一致。</li>
+</ol>
+<h2 id="什么是软件架构"><a href="#什么是软件架构" class="headerlink" title="什么是软件架构"></a>什么是软件架构</h2><p>这就是软件比较复杂的地方，涉及到软件本身的业务体系，和所虚拟的业务体系。根据以上的分析，所生成的架构，究竟那些算是软件架构呢？</p>
+<ol>
+<li>软件因为流量增大而分拆成不同的运行单元，在不同的机器上部署所形成的架构，属于软件架构。</li>
+<li>每个运行单元为了让不同角色的人，比如前端，业务，数据存储等能够并行工作，所分成的代码架构，也属于软件架构。</li>
+</ol>
+<p>所以当我们说软件架构的时候，我们一定要讲清楚，究竟说的是部署的架构，还是代码的架构。软件架构的落地，需要软件的组织架构和流程来保障，离开了这个，软件架构是一句空话。</p>
+<p>另外很多人讲，架构是进化出来的。架构实际上是在量不断的增大，超过了单台服务器的容量，逐渐的分拆，同时导致超过单个人员的能力，工作人员不断的增多，工作内容不断的分拆形成的。这本身就是架构的意义所在。不管怎么分拆，所达到的目标没有任何变化，就是完成业务在计算机中的虚拟化。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part07/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（七）：不要空设架构师这个职位，给他实权</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part05/">
+        <span class="next-text nav-default">架构漫谈（五）：什么是软件</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

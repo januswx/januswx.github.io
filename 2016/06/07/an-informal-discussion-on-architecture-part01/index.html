@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（一）：什么是架构？"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part01/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年2月18日  架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第一篇，作者将会通过类比的方式来介绍什么是架构以及为什么会产生架构。 缘起一直以来，在软件行业，对于什么是架构，都有很多的争论，每个人都有自己的理解。甚至">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（一）：什么是架构？">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part01/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年2月18日  架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第一篇，作者将会通过类比的方式来介绍什么是架构以及为什么会产生架构。 缘起一直以来，在软件行业，对于什么是架构，都有很多的争论，每个人都有自己的理解。甚至">
+<meta property="og:updated_time" content="2016-06-09T15:11:40.983Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（一）：什么是架构？">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年2月18日  架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。 本文是漫谈架构专栏的第一篇，作者将会通过类比的方式来介绍什么是架构以及为什么会产生架构。 缘起一直以来，在软件行业，对于什么是架构，都有很多的争论，每个人都有自己的理解。甚至">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（一）：什么是架构？ · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（一）：什么是架构？
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#缘起"><span class="toc-text">缘起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是架构？"><span class="toc-text">什么是架构？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么会产生架构？"><span class="toc-text">为什么会产生架构？</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part01" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年2月18日 </p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以并引发大家思考，如果你有感触或者新的感悟，欢迎联系专栏负责人Gary（微信greenguolei）深聊。</p>
+<p>本文是漫谈架构专栏的第一篇，作者将会通过类比的方式来介绍什么是架构以及为什么会产生架构。</p>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>一直以来，在软件行业，对于什么是架构，都有很多的争论，每个人都有自己的理解。甚至于很多架构师一说架构，就开始谈论什么应用架构、硬Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。专栏的目的是希望能抛出一些观点，件架构、数据架构等等。我曾经也到处寻找过架构的定义，请教过很多人，结果发现，没有大家都认可的定义。套用一句关于big data流行的笑话，放在架构上也适用：</p>
+<blockquote>
+<p>Architecture is like teenage sex，everybody talks about it，nobody really knows what is it。</p>
+</blockquote>
+<a id="more"></a>
+<p>事实上，架构在软件发明时的N多年以前，就已经存在了，这个词最早是跟随着建筑出现的。所以，我觉得有必要从源头开始，把架构这个概念先讨论清楚，只有这样，软件行业架构的讨论才有意义。</p>
+<h2 id="什么是架构？"><a href="#什么是架构？" class="headerlink" title="什么是架构？"></a>什么是架构？</h2><p>架构的英文是Architecture，在<a href="https://en.wikipedia.org/wiki/Architecture" target="_blank" rel="external">Wikipedia</a>上，架构是这样定义的：</p>
+<blockquote>
+<p>Architecture (Latin architectura, from the Greek ἀρχιτέκτων arkhitekton”architect”, from ἀρχι- “chief” and τέκτων “builder”) is both the process and the product of planning, designing, and constructing buildings and other physical structures。</p>
+</blockquote>
+<p>从这个定义上看，架构好像是一个过程，也不是很清晰。为了讲清楚这个问题，我们先来看看为什么会产生架构。</p>
+<h2 id="为什么会产生架构？"><a href="#为什么会产生架构？" class="headerlink" title="为什么会产生架构？"></a>为什么会产生架构？</h2><p>想象一下，在最早期，每个人都完全独立生活，衣、食、住、行等等全部都自己搞定，整个人类都是独立的个体，不相往来。为了解决人类的延续的问题，自然而然就有男女群居出现，这个时候就出现了分工了，男性和女性所做的事情就会有一定的分工，可是人每天生活的基本需求没有发生变化，还是衣食住行等生活必须品。</p>
+<p>但是一旦多人分工配合作为生存的整体，力量就显得强大多了，所以也自然的形成了族群：有些人种田厉害，有些人制作工具厉害，有些地方适合产出粮食，有些地方适合产出棉花等，就自然形成了人的分群，地域的分群。当分工发生后，实际上每个人的生产力都得到了提高，因为做的都是每个人擅长的事情。</p>
+<p>整个人群的生产力和抵抗环境的能力都得到了增强。为什么呢？因为每个人的能力和时间都是有限的，并且因为人的结构的限制，人同时只能专心做好一件事情，这样不得已就导致了分工的产生。既然分工发生了，原来由一个人干生存所必需的所有的事情，就变成了很多不同分工的角色合作完成这些事情，这些人必须要通过某些机制合在一起，让每个人完成生存所必需的事情，这实际上也导致了交易的发生（交易这部分就不在这里展开了，有机会再讨论）。</p>
+<p>在每个人都必须自己完成所有生活必须品的生产的时候，是没有架构的（当然在个人来讲，同一时刻只能做有限的事情，在时间上还是可能会产生架构的）。一旦产生的分工，就把所有的事情，切分成由不同角色的人来完成，最后再通过交易，使得每个个体都拥有生活必须品，而不需要每个个体做所有的事情，只需要每个个体做好自己擅长的事情，并具备一定的交易能力即可。</p>
+<p>这实际上就形成了社会的架构。那么怎么定义架构呢？以上面这个例子为例，把一个整体（完成人类生存的所有工作）切分成不同的部分（分工），由不同角色来完成这些分工，并通过建立不同部分相互沟通的机制，使得这些部分能够有机的结合为一个整体，并完成这个整体所需要的所有活动，这就是架构。由以上的例子，也可以归纳出架构产生的动力：</p>
+<ol>
+<li>必须由人执行的工作（不需要人介入，就意味着不需要改造，也就不需要架构了）</li>
+<li>每个人的能力有限（每个人都有自己的强项，个人的产出受限于最短板，并且由于人的结构限制，同时只能专注于做好一件事情，比如虽然有两只眼睛，但是只能同时专注于一件事物，有两只手，无法同时做不同的事情。ps. 虽然有少部分人可以左手画圆右手画框，但是不是普遍现象）</li>
+<li>每个人的时间有限（为了减少时间的投入，必然会导致把工作分解出去，给擅长于这些工作的角色来完成，见2，从而缩短时间）</li>
+<li>人对目标系统有更高的要求（如果满足于现状，也就不需要进行架构了）</li>
+<li>目标系统的复杂性使得单个人完成这个系统，满足条件2，3（如果个人就可以完成系统的提高，也不需要别的人参与，也就不需要架构的涉及，只是工匠，并且一般这个工作对时间的要求也不迫切。当足够熟练之后，也会有一定的架构思考，但考虑更多的是如何提高质量，提高个人的时间效率）</li>
+</ol>
+<p>有人可能会挑战说，如果一个人对目标系统进行分解，比如某人建一栋房子，自己采购材料，自己搭建，难道也不算架构嘛？如果对于时间不敏感的话，是会出现这个情况的，但是在这种情况下，并不必然导致架构的发生。如果有足够的自觉，以及足够的熟练的话，也会产生架构的思考，因为这样对于提高生产力是有帮助的，可以缩短建造的时间，并会提高房子的质量。事实上建筑的架构就是在长期进行这些活动后，积累下来的实践。</p>
+<p>当这5个条件同时成立，一定会产生架构。从这个层面上来说，架构是人类发展过程中，由懵懵懂懂的，被动的去认识这个世界，变成主动的去认识，并以更高的效率去改造这个世界的方法。以下我们再拿建筑来举例加强一下理解。</p>
+<p>最开始人类是住在山洞里，住在树上的，主要是为了躲避其他猛兽的攻击，以及减少自然环境的变化，对人类生存的挑战。为了完成这些目标，人类开始学会在平地上用树木和树叶来建立隔离空间的设施，这就是建筑的开始。但是完全隔离也有很多坏处，慢慢就产生了门窗等设施。</p>
+<p>建筑的本质就是从自然环境中，划出一块独占的空间，但是仍然能够通过门窗等和自然环境保持沟通。这个时候架构就已经开始了。对地球上的空间进行切分，并通过门窗，地基等，保持和地球以及空间的有机的沟通。当人类开始学会用火之后，茅棚里面自然而然慢慢就会被切分为两部分，一部分用来烧饭，一部分用来生活。当人的排泄慢慢移入到室内后，洗手间也就慢慢的出现了。这就是建筑内部的空间切分。</p>
+<p>这个时候人们对建筑的需求也就慢慢的越来越多，空间的切分也会变成很多种，组合的方式也会有很多种，比如每个人住的房子，群居所产生的宗教性质的房子，集体活动的房子等等。这个时候人们就开始有意识的去设计房子，架构师就慢慢的出现了。一切都是为了满足人的越来越高的需求，提升质量，减少时间，更有效率的切分空间，并且让空间之间更加有机的进行沟通。这就是建筑的架构以及建筑的架构的演变</p>
+<p>总结一下，什么是架构，就是：</p>
+<ol>
+<li>根据要解决的问题，对目标系统的边界进行界定。</li>
+<li>并对目标系统按某个原则的进行切分。切分的原则，要便于不同的角色，对切分出来的部分，并行或串行开展工作，一般并行才能减少时间。</li>
+<li>并对这些切分出来的部分，设立沟通机制。</li>
+<li>根据3，使得这些部分之间能够进行有机的联系，合并组装成为一个整体，完成目标系统的所有工作。</li>
+</ol>
+<p>同样这个思考可以展开到其他的行业，比如企业的架构，国家的架构，组织架构，音乐架构，色彩架构，软件架构等等。套用三国演义的一句话，合久必分，分久必合。架构实际上就是指人们根据自己对世界的认识，为解决某个问题，主动地、有目的地去识别问题，并进行分解、合并，解决这个问题的实践活动。架构的产出物，自然就是对问题的分析，以及解决问题的方案：包括拆分的原则以及理由，沟通合并的原则以及理由，以及拆分，拆分出来的各个部分和合并所对应的角色和所需要的核心能力等。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part02/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（二）：认识概念是理解架构的基础</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/11/25/win10-UWP-debug-DEP6100-and-DEP6200/">
+        <span class="next-text nav-default">使用surface pro3 win10开发UWP应用真机调试时出现DEP6100和DEP6200错误的解决方法</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

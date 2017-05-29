@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（七）：不要空设架构师这个职位，给他实权"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part07/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年3月30日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第七篇，作者Kevin探讨了什么是架构师、成为架构师的前提条件、如何发现“是谁的问题”、架构师的权利和义务等话题。正如作者所说，架构师必须是一个组织的领导人，有">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（七）：不要空设架构师这个职位，给他实权">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part07/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年3月30日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第七篇，作者Kevin探讨了什么是架构师、成为架构师的前提条件、如何发现“是谁的问题”、架构师的权利和义务等话题。正如作者所说，架构师必须是一个组织的领导人，有">
+<meta property="og:updated_time" content="2016-06-09T15:14:10.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（七）：不要空设架构师这个职位，给他实权">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年3月30日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第七篇，作者Kevin探讨了什么是架构师、成为架构师的前提条件、如何发现“是谁的问题”、架构师的权利和义务等话题。正如作者所说，架构师必须是一个组织的领导人，有">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（七）：不要空设架构师这个职位，给他实权 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（七）：不要空设架构师这个职位，给他实权
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是架构师"><span class="toc-text">什么是架构师</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构师的前提条件"><span class="toc-text">架构师的前提条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何发现“是谁的问题”"><span class="toc-text">如何发现“是谁的问题”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构师的权利和义务"><span class="toc-text">架构师的权利和义务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#架构师和技术"><span class="toc-text">架构师和技术</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part07" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月30日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第七篇，作者Kevin探讨了什么是架构师、成为架构师的前提条件、如何发现“是谁的问题”、架构师的权利和义务等话题。正如作者所说，<strong>架构师必须是一个组织的领导人</strong>，有权利调动这个组织的架构，才能够更好的发挥架构师的作用，更好的把利益的调整落到实处。</p>
+<a id="more"></a>
+<h2 id="什么是架构师"><a href="#什么是架构师" class="headerlink" title="什么是架构师"></a>什么是架构师</h2><p>在之前的几篇文章中，经常会提到架构师这个词。我们已经定义了什么叫架构，那怎么定义架构师呢，是不是做架构的就叫架构师了？ 没有这么简单，本篇尝试讨论一下这个问题。</p>
+<h2 id="架构师的前提条件"><a href="#架构师的前提条件" class="headerlink" title="架构师的前提条件"></a>架构师的前提条件</h2><p>如果一个人在工作中，只是致力于完成自己的工作，以做好自己的工作为主要目标，那么最多只能成为一个工匠，无法成为一个架构师。因为这个过程解决的还是自己的问题，并没有时间的压力，可以随意什么时候做完都可以。</p>
+<p>当我们所做的工作是处于社会的分工的一环，需要帮助别人解决问题，并且按时解决别人的问题成为我们自己的问题的时候，我们就有了时间压力，潜意识里会自然而然的有一种对时间的恐惧。这个恐惧在潜意识里面会想方设法推动我们采用各种手段，以便及时的完成工作，换取报酬。甚至会加班加点，不择手段。</p>
+<p>如果我们还生活在这个恐惧下面，是不可能成为架构师的。要成为架构师，必须要超越这个恐惧才能够看清楚，我们要解决的是别人的问题，不是自己完成工作的问题。因为仅仅是完成了自己的工作，也并不一定就解决了别人的问题。如果别人的问题没有解决–即使我们认为自己的工作完成了–我们的工作实际也没完成，因为我们工作是否完成，是别人说的算的，不是我们自己。</p>
+<p>为什么会有这个对时间的恐惧和压力呢？这是因为我们把完成自己的工作当成了我们的最大利益。如果别人的问题没有真正的解决，必然会觉得付出的报酬不值得，我们的利益实际上是受损失了。这和我们所以为的恰恰相反，因为我们所能得到的工作只会越来越少，别人会越来越不愿意依赖于我们。</p>
+<p>另一方面也说明，我们对自己所从事的工作，还没有足够的自信，我们解决自己的问题还有困难，才会这么在意，并恐惧。如果我们把完成别人工作当成自己的最大利益，这个对时间的恐惧自然就会消失，这个时候就自然而然的开窍了，就知道怎么去发现问题了。只有做到这一点，才能在自己所服务的领域建立起自信，成为一个合格的架构师。</p>
+<p>其实刚开始一般是硬着头皮去克服对时间的恐惧和压力的，一点自信都没有。但只要做成功了一次（只要真的舍得这么去做了，想不成功也很难！），自信就开始慢慢建立起来了，这个时候就是我们开始慢慢变成架构师的时候。大家就当着上当一回，试试看。</p>
+<h2 id="如何发现“是谁的问题”"><a href="#如何发现“是谁的问题”" class="headerlink" title="如何发现“是谁的问题”"></a>如何发现“是谁的问题”</h2><p>当我们真正专注于别人的问题的时候，我们自己的理想，抱负，对技术的追求都不算什么了。这些理想，抱负，对技术的最求，不就是要达到自己的利益吗？ 只有帮助别人解决了问题，这些理想，抱负，对技术的追求才可能实现，否则这些理想，抱负，对技术的追求有什么意义，能得到什么利益？</p>
+<p>这个时候就会真正的开始思考，别人究竟有什么问题。其实也很简单，和我们自己面临的问题一样，别人的问题也都是如何获取更好更多的利益。我们自己想明白了这一点，自然也就能想明白别人的问题。这个时候就能够问出正确的问题：如果问题不解决，究竟谁会有利益的损失？ 如果问题解决了，究竟谁会有收益，谁的收益最大？ 回答了这两个问题就找到了问题的主体。只回答一个是没有用的，因为很多时候这个世界的事情，权责是不对等的。明白了这两个问题，我们只要让事情权责对等起来，让每个人为自己的权利产生的结果负有义务，大部分时候我们自己根本就不需要做什么，问题就都解决了。这就是最高明的架构师。</p>
+<h2 id="架构师的权利和义务"><a href="#架构师的权利和义务" class="headerlink" title="架构师的权利和义务"></a>架构师的权利和义务</h2><p>架构师是要去平衡别人的利益，甚至会调整别人的利益的。一旦架构师是全心全意的为别人的利益服务，自然而然的架构师就拥有了强有力的影响力，肯定会是一个leader。但是只是民意上的leader是没有用的，不能完全发挥架构师的能量。</p>
+<p>架构师必须是一个组织的领导人，有权利调动这个组织的架构，才能够更好的发挥架构师的作用，更好的把利益的调整落到实处。所以很多公司设了很多架构师的职位，但是并不具备调动组织架构的权利，那么这个架构师的职位一定是形同虚设。架构师只能够通过建立某些流程来行使架构师的权利，比如强制架构review，反而会造成很多内部不必要的冲突，最终都会导致这些流程流于形式，得不偿失。相信很多人都已经经历过这些，但似乎很少有人回去探讨这是为什么。</p>
+<p>反过来，具备架构师能力的组织领导人，一定是一个很好的领导，这个组织一定是很健康向上的，因为每个人的权利和义务就是比较均等的。并且这类领导对于组织成员权利和义务的对等状况会非常的敏感，会及时的调整组织架构，在问题发生之前就解决了。这样这个组织就会具备更好的抗压能力，能够更好的为这个组织的客户服务，这个组织的成员内心一定都是比较平衡的，每个人的能力都能够得到比较好的发展。当然读者可能又会说，这不是管理学的东西吗？ 是的，但也是架构的问题。所有架构的核心就是组织架构。或者也可以这样说，一个合格的组织领导人，一定必须是一个合格的架构师。</p>
+<p>架构师的义务似乎不用说了，大家提的要求可能比我提的都高 – 当然是发现问题并且解决问题。架构师必须能够超越对时间的恐惧 –也就是说必须具备了一定程度的自信，哪怕是装的，去真正的发现问题的主体，识别真正的问题，并把这个行为变成为自己面对问题的第一反应。架构师还必须要明白，所给出的解决方案 – 架构的分拆、合并方案，只有让问题的主体的权责对等，才能够真正的解决别人的问题。一般明白了问题的主体，以及主体的利益所在，做到这一点也没有问题。</p>
+<h2 id="架构师和技术"><a href="#架构师和技术" class="headerlink" title="架构师和技术"></a>架构师和技术</h2><p>很多人会问，特别是做软件行业的，架构师是不是需要学习技术，甚至是学习语言？ 如果一个架构师还有这个困扰—就如问这个问题的人，说明目前还不具备做架构师的能力，或者说还不具备对自己领域–哪怕是技术领域–的自信，更别谈业务领域了。</p>
+<p>因为技术和语言，都是用来识别和解决所服务的主体的权责，保护并提升所服务的主体的权利的。特别对于软件领域来说，必须明白软件本身是怎么回事，解决什么问题，还要解决软件所服务的对象的领域本身是怎么回事，解决什么问题，这就要求更高了。语言和技术应该是随手拈来才对，对于架构师这些都是工具。学习技术和语言，如果明白了这些技术和语言要解决的是谁的问题，什么问题，学起来是非常快，非常容易的。</p>
+<p>同样，采用哪个技术或者语言，只要某个技术或语言所解决的问题的主体，以及所解决的问题，和自己所面对的问题的主体和这个主体要解决的问题，这两者是匹配的，那么这个方案是成本是最低的，所采用的技术或者语言就是靠谱的。没有趁手的工具或语言的情况下，自己设计一个也不难，因为很清楚自己要什么。要不要自己做，无非是一个成本问题，也就是利益问题。并且从这个思路下去，选择的工具和语言肯定都是最简单的，成本是最低的。因为架构毕竟解决的还是人的利益问题，成本越低越好，这个成本当然是长期总体成本，不是眼前的短期成本。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part08/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（八）：从架构的角度看如何写好代码</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part06/">
+        <span class="next-text nav-default">架构漫谈（六）：软件架构到底是要解决什么问题？</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

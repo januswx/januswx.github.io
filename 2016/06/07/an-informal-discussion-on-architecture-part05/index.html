@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（五）：什么是软件"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part05/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年3月16日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第五篇，作者将会从自己的认知角度再次反思什么是软件，文中作者探讨了软件发展火热的根本原因以及软件扮演的角色等问题。如前几天一位架构师所说，我们并不缺架构实践，而">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（五）：什么是软件">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part05/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年3月16日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第五篇，作者将会从自己的认知角度再次反思什么是软件，文中作者探讨了软件发展火热的根本原因以及软件扮演的角色等问题。如前几天一位架构师所说，我们并不缺架构实践，而">
+<meta property="og:image" content="http://cdn.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part05/zh/resources/123214.png">
+<meta property="og:image" content="http://cdn.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part05/zh/resources/2143144.jpg">
+<meta property="og:updated_time" content="2016-06-09T15:13:35.011Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（五）：什么是软件">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年3月16日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第五篇，作者将会从自己的认知角度再次反思什么是软件，文中作者探讨了软件发展火热的根本原因以及软件扮演的角色等问题。如前几天一位架构师所说，我们并不缺架构实践，而">
+<meta name="twitter:image" content="http://cdn.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part05/zh/resources/123214.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（五）：什么是软件 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（五）：什么是软件
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#冯诺依曼结构，图灵机，以模拟人为目标"><span class="toc-text">冯诺依曼结构，图灵机，以模拟人为目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#成本为王"><span class="toc-text">成本为王</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件扮演的角色"><span class="toc-text">软件扮演的角色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件开发的架构演变"><span class="toc-text">软件开发的架构演变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件架构的出现"><span class="toc-text">软件架构的出现</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part05" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月16日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p><strong>本文是漫谈架构专栏的第五篇</strong>，作者将会从自己的认知角度再次反思什么是软件，文中作者探讨了软件发展火热的根本原因以及软件扮演的角色等问题。如前几天一位架构师所说，我们并不缺架构实践，而是缺少对于架构的反思，希望这系列文章能帮你重新理解架构，重新认识软件。</p>
+<p>前面通过四篇文章，把什么是架构，如何做好架构等必要的概念澄清了一下。这些概念对于在各种不同的领域都应该也是有用的，需要读者自行思考，并应用到自己所在的领域中。在这篇文章开始，我们用同样的思考，来看看软件是怎么回事，以及如何运用架构思维，更好的设计和实现软件。</p>
+<a id="more"></a>
+<h2 id="冯诺依曼结构，图灵机，以模拟人为目标"><a href="#冯诺依曼结构，图灵机，以模拟人为目标" class="headerlink" title="冯诺依曼结构，图灵机，以模拟人为目标"></a>冯诺依曼结构，图灵机，以模拟人为目标</h2><p>软件的历史，实际上可以说是用机器模拟人的历史。不管大家（包括在这个历史过程中的参与者）有没有意识到，我们都有意无意的在计算机上模仿人类的行为。从冯诺依曼结构开始，程序逻辑开始脱离硬件，采用二进制编码。加上存储，配合输入输出，一个简化的大脑就出现了。图灵机则是模拟大脑的计算，用数学的方式把计算的过程定义了出来，著名的邱奇-图灵论题：一切直觉上能行可计算的函数都可用图灵机计算，反之亦然。软硬件两者一结合，一个可编程的大脑出现了，这也是现在为什么我们把计算机叫做电脑。在硬件上编写出的程序，就是软件，是用来控制硬件的行为的。</p>
+<h2 id="成本为王"><a href="#成本为王" class="headerlink" title="成本为王"></a>成本为王</h2><p>在初期，软件使用二进制编写的，从硬件到软件，成本都非常的高。随着半导体技术的进步，硬件的成本越来越低，性能越来越高，甚至出现了<strong>摩尔定律</strong>：当价格不变时，集成电路上可容纳的元器件数目，约每隔18-24个月增加一倍，性能提升一倍。软件方面，为了简化难度，开始采用汇编，进一步出现了类似于人类的语言的高级语言，比如C/C++/Java等，这使得人类可以用类似于人的语言来和计算机沟通。软件工程师慢慢越来越多，开发软件的成本也越来越低。计算机就好像是一个只需要电，不需要休息的人，可以无休无止的工作。</p>
+<p>人们越来越愿意把原来只有人才能做的事情，交给计算机来做。结果就导致软件越来越丰富，能够做的事情也越来越多，成本也越来越低。可以这么说，成本是我们为什么采用软件的主要动力，可以节省大量的人员培训，减少雇员的数目。随着互联网的发展，人类社会也开始软件化了。原来必须实体店来进行售卖的，搬到互联网上，开店成本更低，并且能够接触到更多的人。想象一下，一个门店每天的人流达到百万级别是很恐怖的，由实体空间大小来决定。但是在互联网上，访问量千万级别都不算什么。最终的结果就变成，每个人能够负担的工作越来越多，成本越来越低。这也是为什么软件这么热的原因。</p>
+<h2 id="软件扮演的角色"><a href="#软件扮演的角色" class="headerlink" title="软件扮演的角色"></a>软件扮演的角色</h2><p>随着软件的规模的变大，做好一个软件也变得越来越难了。早期的程序员写程序，主要是为了帮助自己研究课题。这些程序员熟练了之后，提高了自己的生产力，并发现还可以帮助别人写程序，慢慢软件就变成了一个独立的行业。<strong>程序从早期由一个人完成，也逐渐变成了由很多不同角色的人共同合作来完成</strong>。以下讨论的前提，都是基于帮助别人写程序，多人合作的基础上的。结论对于单人为自己写程序也适用。</p>
+<p>在没有软件之前，每个人干自己的工作，自行保存自己的工作结果。人们面对面或者通过电话等沟通，如下图所示。</p>
+<p><img src="http://cdn.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part05/zh/resources/123214.png" alt="img"></p>
+<p>有了软件之后，实际上，我们是把我们日常生活中所做的事情，包括我们自己本人都一起虚拟化到了计算机中。而人则演化成了，通过计算机的输入输出设备，控制计算机中的自己，来完成日常的工作，以及与其他人的沟通。也就是说，软件一直以来的动力，始终都是来模拟人和这个社会的。比如模拟大气运动（天气预报），模拟人类社会（互联网社交），模拟交易，包括现在正在流行的VR，人工智能等等。模拟的对象越来越高级，难度越来越大。</p>
+<p>不管如何发展，模拟人的所有行为都是一个大的趋势。也就是说，软件的主要目的，还是把人类的生活模拟化，提供更低成本，高效率的新的生活。从这个角度来看，软件主要依赖的还是人类的生活知识。软件更多的是扮演一个cost center，这也是为什么会出现很多的软件代工。</p>
+<p><img src="http://cdn.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part05/zh/resources/2143144.jpg" alt="img"></p>
+<h2 id="软件开发的架构演变"><a href="#软件开发的架构演变" class="headerlink" title="软件开发的架构演变"></a>软件开发的架构演变</h2><p>软件工程师是实现这个模拟过程的关键人物，他必须先理解人是怎么在日常生活中完成工作的，才能够很好的把这些工作在计算机中模拟出来。可是软件工程师需要学习大量的计算机语言和计算机知识，还需要学习各行各业的专业知识。软件工程师本身的培养就比较难，同时行业知识也要靠时间的积累，这样就远远超出了软件工程师的能力了。<strong>所以软件开发就开始有分工了，行业知识和业务的识别</strong>，会交给BA，系统的设计会交给架构师，设计的实现交给架构师，实现的检验交给测试，还有很多其他角色的配合。为了组织这些角色的工作，还有项目经理。这就把原来一个人的连续工作，拆分成了不同角色的人的连续配合，演化成了不同的软件开发的模式。然后慢慢演变出专门为别人开发软件的软件公司。</p>
+<h2 id="软件架构的出现"><a href="#软件架构的出现" class="headerlink" title="软件架构的出现"></a>软件架构的出现</h2><p>如同前面描述的架构的定义，软件架构的出现也是同样的。一开始是懵懵懂懂的去写软件，后来慢慢的就有意识的去切分，演变成了不同的架构。这个背后的动力也是一样的，就是<strong>提升参与的人的利益</strong>，降低成本。导火索也是软件工程师的任务太重，我们需要把很多工作拆分出来。拆分的原则也是一样的，如何让权责一致。同样，这个拆分也是需要组织架构的调整，来保证架构的落地。具体如何分拆，如何调整，我们将在另外一篇中着重讨论。</p>
+<p>以上通过简单的描述计算机和软件的发展历史，阐明软件的本质，其实就是通过把人类的日常工作生活虚拟化，减少成本，提升单个人员的生产力，提升人类自己的利益。软件工程师的职责在这个浪潮中，不堪重负，自然而然就分拆为不同的角色，形成了一个独特的架构体系。这一切的背后，仍然是为了提升人类自己的利益，解决人类自己的问题。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part06/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（六）：软件架构到底是要解决什么问题？</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part04/">
+        <span class="next-text nav-default">架构漫谈（四）：如何做好架构之架构切分</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

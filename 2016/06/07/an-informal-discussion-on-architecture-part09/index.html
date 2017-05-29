@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（九）：理清技术、业务和架构的关系"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part09/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年4月12日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第九篇，作者Kevin以钻木取火为切入点，深入介绍了技术、业务和架构之间的关系。正如作者所说，技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（九）：理清技术、业务和架构的关系">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part09/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年4月12日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第九篇，作者Kevin以钻木取火为切入点，深入介绍了技术、业务和架构之间的关系。正如作者所说，技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获">
+<meta property="og:image" content="http://cdn4.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part09/zh/resources/030.png">
+<meta property="og:image" content="http://cdn4.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part09/zh/resources/031.png">
+<meta property="og:updated_time" content="2016-06-09T15:15:13.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（九）：理清技术、业务和架构的关系">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年4月12日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第九篇，作者Kevin以钻木取火为切入点，深入介绍了技术、业务和架构之间的关系。正如作者所说，技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获">
+<meta name="twitter:image" content="http://cdn4.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part09/zh/resources/030.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（九）：理清技术、业务和架构的关系 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（九）：理清技术、业务和架构的关系
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是技术"><span class="toc-text">什么是技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术与架构，以及与业务之间的关系"><span class="toc-text">技术与架构，以及与业务之间的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术人员和业务人员的关系"><span class="toc-text">技术人员和业务人员的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重新发明轮子"><span class="toc-text">重新发明轮子</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part09" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年4月12日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第九篇，作者Kevin以钻木取火为切入点，深入介绍了技术、业务和架构之间的关系。正如作者所说，技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获取更大更好的利益。</p>
+<p>某天和朋友吃饭正好聊到这个话题。作为架构师或者做技术的人，在开发软件时，我们基本上就是在<strong>扮演上帝的角色</strong>：我们不但要创建出一个个的程序，还要让这些程序能够脱离我们在硬件上独立运行，以便为这个程序所服务的群体提供服务。当这个程序出现问题甚至bug的时候，我们还得扮演牧师的角色去修复这些问题。这不正是一个程序的社会吗？ 和人类社会的演变何其相似！那么我们自然也能够拿人类演变的历史来指导软件开发工作，以避免再经历一次像人类演变发展那么痛苦的过程了。由此我们也可以看出，架构师和程序员们都在扮演着多么重要的角色，如果还在解决自己的问题，怎么扮演好上帝这个角色？</p>
+<a id="more"></a>
+<p>在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某种技术。在很多人的概念里面，架构和技术实际上是等同的。学会了几种技术，就认为自己是架构师了，<strong>甚至是学习的技术越多，就觉得自己的水平越高</strong>。这样实际上是对自己很不负责任的。要知道任何技术都是为了解决某种问题而存在的，学会了技术，并不代表自己能够解决问题，这一点非常的重要。学会的技术的多少，所带来的差别只是自己解决问题的手段多了罢了。但是手段多了就一定是好事吗？ 很多时候，学习的技术越多，越不知道采用哪种技术好，所谓“乱花渐欲迷人眼”。</p>
+<p>还有另一种很普遍的观点：技术人普遍看不起业务，认为技术更高端，而业务太低端，并且业务往往喜欢给技术挖坑。业务则觉得技术眼光高，但是实际解决不了问题，总是理解有偏差，但是又无可奈何，因为自己不会。</p>
+<p>本篇文章尝试从这里入手，分析一下这三个概念到底有什么关系，我们应该<strong>怎么处理业务、技术还有架构的关系</strong>。</p>
+<h2 id="什么是技术"><a href="#什么是技术" class="headerlink" title="什么是技术"></a>什么是技术</h2><p>当我们一无所有，或者什么都不会的时候，这个时候实际上是没有技术的。就好比人类在最早期，什么都得用自己的双手来干活。一旦我们在日常生活中无意间发现某些规律的时候，我们就可以通过创造条件，让这个规律重复的发生。通过人为创造条件，让指定的规律按照人类的意愿发生，这就是技术。</p>
+<p>比如取火，最早人类只能靠打雷等自然现象产生火。取火其实就是一个业务目标，要解决的是人类自己的问题，这就是业务，实际就是人类的利益。这个时候人类没有生火的技术，只能靠不断的加木材，保持火不熄灭。后来人们发现了钻木取火：只要用一个干的木棍，在另一个干木表面快速的转动，就可以生火。这个办法让人类可以自行创造火源，就产生了钻木取火的技术。</p>
+<p><img src="http://cdn4.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part09/zh/resources/030.png" alt="img"></p>
+<p>但是双手快速转动木棍钻木取火，并不是所有人都能够做得到的，需要很多力量和速度，对人的要求太高。为了解决快速转动的问题，就有人采用弓弦来提升木棍转动的速度。</p>
+<p><img src="http://cdn4.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part09/zh/resources/031.png" alt="img"></p>
+<p>也就是说：</p>
+<ol>
+<li>业务目标是为了取火，钻木取火这个技术的出现解决了这个问题。</li>
+<li>钻木取火的效率不高，影响了业务（取火）的效率，就有了进一步改进的动机，改进转动木棍的方式，产生了弓弦转动木棍的技术。</li>
+</ol>
+<h2 id="技术与架构，以及与业务之间的关系"><a href="#技术与架构，以及与业务之间的关系" class="headerlink" title="技术与架构，以及与业务之间的关系"></a>技术与架构，以及与业务之间的关系</h2><p>技术总是在人类解决对业务的要求不断提高的情况下产生，目的也是为了获取更大更好的利益。所以：</p>
+<ol>
+<li><p>技术是为了解决业务的问题而产生的，没有了业务，技术就没有了存在的前提。</p>
+</li>
+<li><p>有了更好的技术，效率更差的技术，就会慢慢的被淘汰，消失，一切都遵从人类的利益诉求–也就是业务。有人会问，不用钻木取火了，但是弓弦加速转动木棍还可以用啊？ 没错，因为弓弦转动木棍这个技术，不是来生火的，是用来加速木棍转动的，所解决的问题不一样。但是两种不同的技术，合理结合起来，会更好更有效率的解决业务问题。</p>
+<p>所以技术与技术之间，有两种关系：</p>
+</li>
+<li><p>在解决同一个业务问题的前提下，更高效，更低成本的技术，会淘汰低效，高成本的技术。这是人类利益诉求所决定的。</p>
+</li>
+<li><p>一般刚开始解决根本问题的技术（钻木取火）的效率是比较低的，只是把不可能变成了可能（从这一点上来说，技术才是业务的enabler）。然后就会有提高效率的需求出现，要求改进这个技术。这个技术的低效率部分就会被其他人（或者技术发明人自己）加以改进，这部分就会形成新的技术。</p>
+</li>
+</ol>
+<p>当关系2发生的时候，这个地方必定会形成一个切分，新技术会通过某种方式和原有的技术连接在一起形成一个整体，让这个新的技术可以和原有技术共同工作，使得原有的技术可以用更高的效率解决问题。因为要解决的主要问题（生火）并没有发生改变，分拆所形成的是一个树状的结构。</p>
+<p>按照前面的架构定义，这个时候其实已经产生了架构。也就是说，一般是先有技术，才会有架构。这些其他技术（弓弦拉动木棍），是从直接解决问题的初始主要技术中分拆出来形成的，并通过树状结构和主要技术（钻木取火）组合在一起。在解决主要问题（生火）之后，再开始逐渐的分拆为更为细粒度的技术（弓弦转木棍）。</p>
+<p>而这个细粒度的技术（弓弦转动木棍）往往不会和业务的主要目标（生火）发生直接的关系。不同的技术，通过树状结构，组合在一起，形成了一个完整的架构解决方案，共同完成业务的目标。这就是技术，业务和架构之间的关系。很多人把这个过程称为架构的进化，我更愿意把这个过程称为技术的进步所导致的新的架构分拆，因为这个过程内在的动力，更多的是来自技术对解决业务问题的解决。</p>
+<h2 id="技术人员和业务人员的关系"><a href="#技术人员和业务人员的关系" class="headerlink" title="技术人员和业务人员的关系"></a>技术人员和业务人员的关系</h2><p>为什么技术人员总是和业务人员发生冲突呢？ 这是因为技术人员很多时候关心的技术，和业务的主要目标往往不是直接对应的，业务也是负责某一部分的业务，也不是和业务的主要目标直接对应的，都是树的分支节点（上文已经解释了为何会发生这种情况）。只有直接解决业务问题的那个技术（或业务）–树的根节点–会和业务直接相关。所以一旦产生冲突，一般必须两个根节点（一般都是领导）碰面才能解决问题，就是这个原因–他们都知道业务主要目标。这也是为什么下层无法理解上层，而上层都喜欢下军令状，要求下层执行。人只有尽量去理解上层的问题才能做下层的分拆。</p>
+<p>在软件行业，这个根节点技术就是软件。这也是为什么架构师要认识什么叫软件，软件解决谁的问题，什么问题，软件本身又是怎么分拆的，才能够更好的组合不同的技术，完成业务的目标。而软件里面和业务直接相关的，只有Business Domain这一部分。</p>
+<p>用人来打比方，Business Domain相当于人的大脑，而Service，Repository，Glue Code等部分所采用的技术，全部都是计算机自己领域的技术，都是为了能够让程序跑起来，相当于人的四肢。我们大部分开发人员的工作主要专注于四肢部分。我们真正应该投入的是大脑部分。因为大脑能够决定四肢长什么样，而不是反过来。很多架构师、技术人员主要专注于计算机相关的技术，忽略了业务本身，甚至看不起业务，这也是为什么技术总是和业务冲突的原因。</p>
+<p><strong>架构师应该承担起解决业务问题的这个角色来</strong>，专注于Business Domain和软件本身的架构，让技术人员致力于为业务在计算机中跑起来而努力。只有把这两者很好的结合起来，才能更好地完成业务的目标，才会让软件更好地服务于大家。最终一定会得到一个很好的软件架构，令软件开发团队和业务部门都能够很好地开展工作并降低成本。</p>
+<h2 id="重新发明轮子"><a href="#重新发明轮子" class="headerlink" title="重新发明轮子"></a>重新发明轮子</h2><p>当现有已经存在很多技术，而这些技术却和我们所要解决的问题并不是那么直接对应的时候，我们就需要有意识的组织和识别不同的技术，来实现业务的目标。这个时候组织的方式有很多种，其中成本最低的方法就是按照要达成的目的和当前的问题，从上到下进行架构分拆。分拆出来的更细粒度的问题，分解到不同的人来进行解决，就形成了业务架构和组织架构。解决这些问题就需要组合很多不同的技术，那么应该采用哪些技术？还是自己重头实现一个？ 自己实现一个—这就是很多人所谓的重新发明轮子。以下试着分析一下：</p>
+<ol>
+<li>当技术所解决的问题和分拆出来要解决的问题，完全匹配的时候，这是最完美的。比如需要提供web要访问的service，很多MVC的framework就可以很好的满足这一点。而这个时候如果非要自己实现一个，很有可能就是重新发明轮子。</li>
+<li>当技术所提供的能力远远超过需要解决的问题时，往往掌握技术和维护技术会成为瓶颈。因为越复杂的技术，成本越高。如果自己实现一个仅仅是解决当前问题的方案，可能成本反而更低。这也是为什么很多大型的互联网公司不断地开源出来自己的技术的原因。而这些技术对于我们来说是否适用？他们原本是用来解决谁的问题的？什么问题？如果不清楚这些，就冒然采用，可能会导致更高的成本。</li>
+<li>当技术所提供的能力和我们所要解决的问题部分匹配时，还是要看成本。比如当我们需要一个锤子的时候，手边正好没有，但是却有一只高跟鞋，勉强也可以替代锤子。但是长期来看，这么用不划算，因为高跟鞋的价格比锤子高很多，耐用性差很多，维护成本也高很多。</li>
+</ol>
+<p>所以，准确识别采用什么技术的能力，也是架构师所要具备的能力之一。考虑的主要因素也是长期的成本和收益。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/10/my-tools-in-common-usage/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">个人常用软件收藏</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part08/">
+        <span class="next-text nav-default">架构漫谈（八）：从架构的角度看如何写好代码</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

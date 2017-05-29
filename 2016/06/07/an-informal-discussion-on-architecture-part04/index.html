@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（四）：如何做好架构之架构切分"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part04/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年3月9日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第四篇，作者将会介绍架构的切分，并直戳切分的本质其实就是利益的调整。文中作者将会讨论为什么需要切分、切分的原则、切分与建模、切分的输出和组织架构等问题。欢迎阅读和">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（四）：如何做好架构之架构切分">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part04/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年3月9日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第四篇，作者将会介绍架构的切分，并直戳切分的本质其实就是利益的调整。文中作者将会讨论为什么需要切分、切分的原则、切分与建模、切分的输出和组织架构等问题。欢迎阅读和">
+<meta property="og:updated_time" content="2016-06-09T15:13:21.345Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（四）：如何做好架构之架构切分">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年3月9日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第四篇，作者将会介绍架构的切分，并直戳切分的本质其实就是利益的调整。文中作者将会讨论为什么需要切分、切分的原则、切分与建模、切分的输出和组织架构等问题。欢迎阅读和">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（四）：如何做好架构之架构切分 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（四）：如何做好架构之架构切分
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#切分就是利益的调整"><span class="toc-text">切分就是利益的调整</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么需要切分？"><span class="toc-text">为什么需要切分？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切分的原则"><span class="toc-text">切分的原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切分与建模"><span class="toc-text">切分与建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#切分的输出和组织架构"><span class="toc-text">切分的输出和组织架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结一下"><span class="toc-text">总结一下</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part04" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年3月9日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p>本文是漫谈架构专栏的第四篇，作者将会介绍架构的切分，并直戳切分的本质其实就是利益的调整。文中作者将会讨论为什么需要切分、切分的原则、切分与建模、切分的输出和组织架构等问题。欢迎阅读和反馈。</p>
+<p>前一篇已经讲了如何识别问题。在识别出是谁的问题之后，会发现，在大部分情况下，问题都迎刃而解，不需要做额外的动作。很多时候问题的产生都是因为沟通的误解，或者主观上有很多不必要的利益诉求导致的。但是总还有一部分确实是有问题的，需要做调整，那么就必须要有所动作，做相应的调整。这个调整就是架构的切分。</p>
+<a id="more"></a>
+<h2 id="切分就是利益的调整"><a href="#切分就是利益的调整" class="headerlink" title="切分就是利益的调整"></a>切分就是利益的调整</h2><p>我们要非常的清楚，所有的切分调整，都是对相关人的利益的调整。为什么这么说呢，因为维护自己的利益，是每个人的本性，是在骨子里面的，我们不能逃避这一点。我们以第一篇文章里面的例子为例来做解释。</p>
+<p>我们已经知道，随着社会的发展，分工是必然的，为什么呢? 这个背后的动力就是每个人自己的利益。每个人都希望能够把自己的利益最大化，比如：生活的更舒适，更轻松，更安全，占用并享有更多的东西。但是每个人的能力和时间都非常的有限，不可能什么都懂，所以自然需要舍掉一些自己不擅长的东西，用自己擅长的东西去换取别人擅长的东西。</p>
+<p>对比一个人干所有的事情，结果就是大家都能够得到更多，当然也产生了一个互相依赖的社会，互相谁都离不开谁。这就是自然而然而产生的架构切分，背后的原动力就是人们对自己利益的渴望。人们对自己利益的渴望也是推动社会物质发展的原动力。</p>
+<p>在这个模式下，比较有意思的是，每个人必须要舍掉自己的东西，才能够得到更多的东西。有些人不愿意和别人进行交换，不想去依赖于别人，这些人的生活就很明显的差很多，也辛苦很多，自然而然的就被社会淘汰了。如果需要在这个社会上立足，判断标准就变成了：如何给这个社会提供更好更有质量的服务。提供的更好更多的服务，自然就能够换取更多更好的生活必需品。实际上这就是我们做人的道理。</p>
+<h2 id="为什么需要切分？"><a href="#为什么需要切分？" class="headerlink" title="为什么需要切分？"></a>为什么需要切分？</h2><p>当人们认识到要主动的去切分一个系统的时候，毫无疑问，我们不能忘掉利益这个原动力。所有的切分决策都不能够违背这一点，这是大方向。结合前一篇“识别问题”，一旦确定了问题的主体，那么系统的利益相关人（用现代管理学语言叫：stockholder）就确定了下来。所发现的问题，会有几种情况：</p>
+<ol>
+<li>某个或者某些利益相关人负载太重。    <ul>
+<li>时间上的负载太重。</li>
+<li>空间上的负载太重，本质上还是时间上的负载太重。</li>
+</ul>
+</li>
+<li>某个或者某些利益相关人的权利和义务不对等。</li>
+</ol>
+<h2 id="切分的原则"><a href="#切分的原则" class="headerlink" title="切分的原则"></a>切分的原则</h2><p>情况1是切分的原因，情况2是切分不合理而导致的新的问题，最终还是要回到情况1。对于情况1，本质上都是时间上的负载。因为每个人的时间是有限的，怎么在有限的时间内做出更多的事情？那么只有把时间上连续的动作，切分成时间上可以并行的动作，在空间上横向扩展。所以切分就要有几个原则：</p>
+<ol>
+<li>必须在连续时间内发生的一个活动，不能切分。比如孕妇怀孕，必须要10月怀胎，不能够切成10个人一个月完成。</li>
+<li>切分出来的部分的负责人，对这个部分的权利和义务必须是对等的。比方说妈妈10月怀胎，妈妈有权利处置小孩的出生和抚养，同样也对小孩的出生和抚养负责。为什么必须是这样呢? 因为如果权利和义务是不对等的话，会伤害每个个体的利益，分出来执行的效率会比没有分出来还要低，实际上也损害了整体的利益，这违背了提升整体利益的初衷。</li>
+<li>切分出来的部分，不应该超出一个自然人的负载。当然对于每个人的能力不同，负载能力也不一样，需要不断的根据实际情况调整，这实际上就是运营。</li>
+<li>切分是内部活动，内部无任怎么切，对整个系统的外部应该是透明的。如果因为切分导致整个系统解决的问题发生了变化，那么这个变化不属于架构的活动。当然很多时候当我们把问题分析的比较清楚的时候，整个系统的边界会进一步的完善，这就会形成螺旋式的进化。但这不属于架构所应该解决的问题。进化的发生，也会导致新的架构的切分。</li>
+</ol>
+<p>原则2是确保我们不能违反人性，因为维护自己的利益，是每个人的本性。只有权利和义务对等才能做到这一点。从原则2的也可以推理，所有的架构分拆，都应该是形成树状的结果，不应该变成有向图，更不应该是无向图。很多人一谈架构，必谈分层，但是基本上都没意识到，是因为把一个整体分拆为了一棵树，因为有了树，才有层。</p>
+<p>从某种意义上来说，谈架构就是谈分层，似乎也没有错，但是还是知道为什么比较好。从根节点下来，深度相同的是同一层。这个是数学概念，我就不展开了，感兴趣可以去复习一下数学。</p>
+<p>同样我们看一个组织架构，也可以做一个粗略的判断，如果一个企业的组织架构出现了“图”，比方说多线汇报，一定是对stakeholder的利益分析出现了问题，这就会导致问题2的发生。问题2一旦出现，我们必须马上要意识到，如果这个问题持续时间长，会极大的降低企业的运作效率，对相关stakeholder的利益都是非常不利的，同样对于企业的利益也是不利的。必须快速调整相关stakeholder的职责，使得企业的组织架构成为一个完美的树状，并且使得数的层数达到尽可能的低。只有平衡数可以比较好的达到这个效果。</p>
+<p>当然如果某个节点的能力很强，也可以达到减小树的高度的结果。技术的提升，也是可以提升每个节点的能力，降低树的层数。很多管理学都在讨论如何降低组织架构的层数，使得管理能够扁平化，原因就在于此，这里就不展开讨论了。从这里也基本可以得出一个结论，一个好的组织的领导，一定也是一个很好的架构师。</p>
+<h2 id="切分与建模"><a href="#切分与建模" class="headerlink" title="切分与建模"></a>切分与建模</h2><p>实际上切分的过程就是建模的过程，每次对大问题的切分都会生成很多小问题，每个小问题就形成了不同的概念。这也是系列第二篇文章尝试表达的。这些不同的概念大部分时候人们自发的已经建好了，架构师更多的是要去理解这些概念，识别概念背后所代表的的人的利益。比如人类社会按照家庭进行延续，形成了家族，由于共享一片土地资源，慢慢形成了村庄，村庄联合体，不同地域结合，形成了国家。由于利益分配的原因，形成了政权。每次政权的更迭，都是利益重新分配的动力所决定的。</p>
+<p>同样对于一个企业也是一样的，一开始一个人干所有的事情。当业务量逐渐变大，就超过了一个人能够处理容量，这些内容就会被分解出来，开始招聘人进来，把他们组合在一起，帮助处理企业的事务。整个企业的事务，就按照原则2，分出来了很多新的概念：营销，售前，售中，售后，财务，HR等等。企业的创始人的工作就变成了如何组合这些不同的概念完成企业的工作。如果业务再继续增大，这些分出来的部分还要继续分拆，仍然要按照原则2才能够让各方达到利益最大化。如果某个技术的提升，提高了某个角色的生产力，使得某个角色可以同时在承担更多的工作，就会导致职责的合并，降低树的层数。</p>
+<h2 id="切分的输出和组织架构"><a href="#切分的输出和组织架构" class="headerlink" title="切分的输出和组织架构"></a>切分的输出和组织架构</h2><p>架构切分的输出实际上就是一个系统的模型，对于一个整体问题，有多少的相关方，每个相关方需要承担哪些权利和义务，不同的相关方是如何结合起来完成系统的整体任务的。有的时候是从上往下切（企业），有的时候是从下往上合并，有的时候两者皆有之（人类社会的发展）。而切分的结果最终都会体现在组织架构上，因为我们切分的实际上就是人的利益。</p>
+<p>从这方面也可以看出，任何架构调整都会涉及到组织架构，千万不可轻视。同样，如果对于stakeholder的利益分析不够透彻，也会导致架构无法落地，因为没有入愿意去损坏自己的利益。一旦强制去执行，人心就开始溃散。这个也不一定是坏事，只要满足原则2就能够很好的建立一个新的次序和新的利益关系，保持组织的良性发展，长久来看是对所有人的利益都有益的，虽然短期内有对某些既得利益者会有损害。</p>
+<h2 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h2><ol>
+<li>架构的切分的导火索是人的负载太重。</li>
+<li>架构的切分实际就是对stakeholder的利益进行切分或合并，使得每个stakeholder的权责是对等的，每个stakeholder可以为自己的利益负责。</li>
+<li>架构切分的最终结果都会体现在组织架构上，只有这样才能够让架构落地并推进。</li>
+<li>架构切分的结果一定是一个树状，这也是为什么会产生分层。层数越多沟通越多，效率越低，分层要越少越好。尽可能变成一颗平衡树，才能让整个系统的效率最大化。</li>
+</ol>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part05/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（五）：什么是软件</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part03/">
+        <span class="next-text nav-default">架构漫谈（三）：如何做好架构之识别问题</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

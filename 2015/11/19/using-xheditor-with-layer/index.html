@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="在layer弹出层中使用xheditor编辑器"/>
+
+
+
+
+  <meta name="keywords" content="xheditor,layer," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2015/11/19/using-xheditor-with-layer/"/>
+
+
+<meta name="description" content="layerlayer是一个web弹层组件，详细介绍 xheditorxhEditor是一个基于jQuery开发的简单迷你并且高效的可视化HTML编辑器，基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+，详细介绍 问题根据官方使用说明，写了如下代码12345678910111213141516171819$(func">
+<meta name="keywords" content="xheditor,layer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在layer弹出层中使用xheditor编辑器">
+<meta property="og:url" content="http://yoursite.com/2015/11/19/using-xheditor-with-layer/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="layerlayer是一个web弹层组件，详细介绍 xheditorxhEditor是一个基于jQuery开发的简单迷你并且高效的可视化HTML编辑器，基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+，详细介绍 问题根据官方使用说明，写了如下代码12345678910111213141516171819$(func">
+<meta property="og:updated_time" content="2016-06-09T15:16:09.158Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在layer弹出层中使用xheditor编辑器">
+<meta name="twitter:description" content="layerlayer是一个web弹层组件，详细介绍 xheditorxhEditor是一个基于jQuery开发的简单迷你并且高效的可视化HTML编辑器，基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+，详细介绍 问题根据官方使用说明，写了如下代码12345678910111213141516171819$(func">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 在layer弹出层中使用xheditor编辑器 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          在layer弹出层中使用xheditor编辑器
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2015年11月19日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#layer"><span class="toc-text">layer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xheditor"><span class="toc-text">xheditor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题"><span class="toc-text">问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-text">解决方法</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h2 id="layer"><a href="#layer" class="headerlink" title="layer"></a>layer</h2><p>layer是一个web弹层组件，<a href="http://layer.layui.com/" target="_blank" rel="external">详细介绍</a></p>
+<h2 id="xheditor"><a href="#xheditor" class="headerlink" title="xheditor"></a>xheditor</h2><p>xhEditor是一个基于jQuery开发的简单迷你并且高效的可视化HTML编辑器，基于网络访问并且兼容IE 6.0+,Firefox 3.0+,Opera 9.6+,Chrome 1.0+,Safari 3.22+，<a href="http://xheditor.com/" target="_blank" rel="external">详细介绍</a></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>根据官方使用说明，写了如下代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;				</div><div class="line">	$(<span class="string">'#addText'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;				</div><div class="line">		layer.open(&#123;</div><div class="line">			<span class="attr">type</span>: <span class="number">1</span>,</div><div class="line">			<span class="attr">title</span>:<span class="string">"add some text"</span>,</div><div class="line">			<span class="attr">area</span>: [<span class="string">'801px'</span>, <span class="string">'405px'</span>], <span class="comment">//宽高</span></div><div class="line">			content: $(<span class="string">'#xh'</span>),</div><div class="line">			<span class="attr">end</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				$(<span class="string">'#content'</span>).xheditor(<span class="literal">false</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;);</div><div class="line">		$(<span class="string">'#content'</span>).xheditor(&#123;<span class="attr">tools</span>:<span class="string">'Pastetext,FontSize,FontColor,BackColor,|,Bold,Italic,Align,List,Outdent,Indent,Hr,Table,Source'</span>,<span class="attr">skin</span>:<span class="string">'nostyle'</span>&#125;);</div><div class="line">	&#125;);</div><div class="line">	</div><div class="line">	$(<span class="string">'#btnOk'</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		$(<span class="string">'#litext'</span>).html($(<span class="string">'#content'</span>).val());				</div><div class="line">		layer.closeAll();</div><div class="line">	&#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>能够正常运行，但是在弹出层中的工具栏点击却没有反应，经过原因的查找，发现是xheditor的skin样式的问题，z-index小于layer的弹出层的z-index,导致xheditor的层被layer遮住了。</p>
+<a id="more"></a>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>修改nostyle样式的css文件，使其z-index大于layer弹出层的z-index</p>
+<p><a href="https://github.com/januswx/xheditorwithlayer" target="_blank" rel="external">源代码</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/xheditor/">xheditor</a>
+            
+              <a href="/tags/layer/">layer</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2015/11/25/win10-UWP-debug-DEP6100-and-DEP6200/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">使用surface pro3 win10开发UWP应用真机调试时出现DEP6100和DEP6200错误的解决方法</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2015/10/23/install-mono-and-jexus-in-centos/">
+        <span class="next-text nav-default">CnetOS下安装Mono与Jexus</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

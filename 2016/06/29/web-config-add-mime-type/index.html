@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="在web.config中添加MIME类型"/>
+
+
+
+
+  <meta name="keywords" content="asp.net,c#,IIS," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/29/web-config-add-mime-type/"/>
+
+
+<meta name="description" content="今天在开发asp.net mvc程序中，通过调试工具，发现字体（xxx.woff）文件不能正常加载，原来是IIS中是没有类型为.woff的MIME类型的，我们可以在IIS的MIME类型管理中添加.woff类型。但是为了网站配置的通用性，我们也可以把MIME类型添加在项目的web.config中，这样的话，当我们把项目部署到不同的服务器上时，就不用总是需要在IIS中添加MIME类型了。 MIME配置">
+<meta name="keywords" content="asp.net,c#,IIS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在web.config中添加MIME类型">
+<meta property="og:url" content="http://yoursite.com/2016/06/29/web-config-add-mime-type/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="今天在开发asp.net mvc程序中，通过调试工具，发现字体（xxx.woff）文件不能正常加载，原来是IIS中是没有类型为.woff的MIME类型的，我们可以在IIS的MIME类型管理中添加.woff类型。但是为了网站配置的通用性，我们也可以把MIME类型添加在项目的web.config中，这样的话，当我们把项目部署到不同的服务器上时，就不用总是需要在IIS中添加MIME类型了。 MIME配置">
+<meta property="og:updated_time" content="2016-06-29T01:27:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在web.config中添加MIME类型">
+<meta name="twitter:description" content="今天在开发asp.net mvc程序中，通过调试工具，发现字体（xxx.woff）文件不能正常加载，原来是IIS中是没有类型为.woff的MIME类型的，我们可以在IIS的MIME类型管理中添加.woff类型。但是为了网站配置的通用性，我们也可以把MIME类型添加在项目的web.config中，这样的话，当我们把项目部署到不同的服务器上时，就不用总是需要在IIS中添加MIME类型了。 MIME配置">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 在web.config中添加MIME类型 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          在web.config中添加MIME类型
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月29日
+        </span>
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>今天在开发asp.net mvc程序中，通过调试工具，发现字体（xxx.woff）文件不能正常加载，原来是IIS中是没有类型为.woff的MIME类型的，我们可以在IIS的MIME类型管理中添加.woff类型。但是为了网站配置的通用性，我们也可以把MIME类型添加在项目的web.config中，这样的话，当我们把项目部署到不同的服务器上时，就不用总是需要在IIS中添加MIME类型了。</p>
+<p>MIME配置在system.webServer节点的staticContent节点中，设置mimeMap节点中的fileExtension文件扩展名属性和mimeType这个MIME类型属性。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> <span class="tag">&lt;<span class="name">system.webServer</span>&gt;</span>    </div><div class="line">	<span class="tag">&lt;<span class="name">staticContent</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">remove</span> <span class="attr">fileExtension</span>=<span class="string">".woff"</span> /&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">mimeMap</span> <span class="attr">fileExtension</span>=<span class="string">".woff"</span> <span class="attr">mimeType</span>=<span class="string">"font/x-font-woff"</span> /&gt;</span>     </div><div class="line">		<span class="tag">&lt;/<span class="name">staticContent</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">system.webServer</span>&gt;</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>附上常用MIME类型表（通过Ctrl+f 进行查询）</p>
+<table>
+<thead>
+<tr>
+<th>文件扩展名</th>
+<th>Content-Type(Mime-Type)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.*（ 二进制流，不知道下载文件类型）</td>
+<td>application/octet-stream</td>
+</tr>
+<tr>
+<td>.tif</td>
+<td>image/tiff</td>
+</tr>
+<tr>
+<td>.001</td>
+<td>application/x-001</td>
+</tr>
+<tr>
+<td>.301</td>
+<td>application/x-301</td>
+</tr>
+<tr>
+<td>.323</td>
+<td>text/h323</td>
+</tr>
+<tr>
+<td>.906</td>
+<td>application/x-906</td>
+</tr>
+<tr>
+<td>.907</td>
+<td>drawing/907</td>
+</tr>
+<tr>
+<td>.a11</td>
+<td>application/x-a11</td>
+</tr>
+<tr>
+<td>.acp</td>
+<td>audio/x-mei-aac</td>
+</tr>
+<tr>
+<td>.ai</td>
+<td>application/postscript</td>
+</tr>
+<tr>
+<td>.aif</td>
+<td>audio/aiff</td>
+</tr>
+<tr>
+<td>.aifc</td>
+<td>audio/aiff</td>
+</tr>
+<tr>
+<td>.aiff</td>
+<td>audio/aiff</td>
+</tr>
+<tr>
+<td>.anv</td>
+<td>application/x-anv</td>
+</tr>
+<tr>
+<td>.asa</td>
+<td>text/asa</td>
+</tr>
+<tr>
+<td>.asf</td>
+<td>video/x-ms-asf</td>
+</tr>
+<tr>
+<td>.asp</td>
+<td>text/asp</td>
+</tr>
+<tr>
+<td>.asx</td>
+<td>video/x-ms-asf</td>
+</tr>
+<tr>
+<td>.au</td>
+<td>audio/basic</td>
+</tr>
+<tr>
+<td>.avi</td>
+<td>video/avi</td>
+</tr>
+<tr>
+<td>.awf</td>
+<td>application/vnd.adobe.workflow</td>
+</tr>
+<tr>
+<td>.biz</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.bmp</td>
+<td>application/x-bmp</td>
+</tr>
+<tr>
+<td>.bot</td>
+<td>application/x-bot</td>
+</tr>
+<tr>
+<td>.c4t</td>
+<td>application/x-c4t</td>
+</tr>
+<tr>
+<td>.c90</td>
+<td>application/x-c90</td>
+</tr>
+<tr>
+<td>.cal</td>
+<td>application/x-cals</td>
+</tr>
+<tr>
+<td>.cat</td>
+<td>application/vnd.ms-pki.seccat</td>
+</tr>
+<tr>
+<td>.cdf</td>
+<td>application/x-netcdf</td>
+</tr>
+<tr>
+<td>.cdr</td>
+<td>application/x-cdr</td>
+</tr>
+<tr>
+<td>.cel</td>
+<td>application/x-cel</td>
+</tr>
+<tr>
+<td>.cer</td>
+<td>application/x-x509-ca-cert</td>
+</tr>
+<tr>
+<td>.cg4</td>
+<td>application/x-g4</td>
+</tr>
+<tr>
+<td>.cgm</td>
+<td>application/x-cgm</td>
+</tr>
+<tr>
+<td>.cit</td>
+<td>application/x-cit</td>
+</tr>
+<tr>
+<td>.class</td>
+<td>java/*</td>
+</tr>
+<tr>
+<td>.cml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.cmp</td>
+<td>application/x-cmp</td>
+</tr>
+<tr>
+<td>.cmx</td>
+<td>application/x-cmx</td>
+</tr>
+<tr>
+<td>.cot</td>
+<td>application/x-cot</td>
+</tr>
+<tr>
+<td>.crl</td>
+<td>application/pkix-crl</td>
+</tr>
+<tr>
+<td>.crt</td>
+<td>application/x-x509-ca-cert</td>
+</tr>
+<tr>
+<td>.csi</td>
+<td>application/x-csi</td>
+</tr>
+<tr>
+<td>.css</td>
+<td>text/css</td>
+</tr>
+<tr>
+<td>.cut</td>
+<td>application/x-cut</td>
+</tr>
+<tr>
+<td>.dbf</td>
+<td>application/x-dbf</td>
+</tr>
+<tr>
+<td>.dbm</td>
+<td>application/x-dbm</td>
+</tr>
+<tr>
+<td>.dbx</td>
+<td>application/x-dbx</td>
+</tr>
+<tr>
+<td>.dcd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.dcx</td>
+<td>application/x-dcx</td>
+</tr>
+<tr>
+<td>.der</td>
+<td>application/x-x509-ca-cert</td>
+</tr>
+<tr>
+<td>.dgn</td>
+<td>application/x-dgn</td>
+</tr>
+<tr>
+<td>.dib</td>
+<td>application/x-dib</td>
+</tr>
+<tr>
+<td>.dll</td>
+<td>application/x-msdownload</td>
+</tr>
+<tr>
+<td>.doc</td>
+<td>application/msword</td>
+</tr>
+<tr>
+<td>.dot</td>
+<td>application/msword</td>
+</tr>
+<tr>
+<td>.drw</td>
+<td>application/x-drw</td>
+</tr>
+<tr>
+<td>.dtd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.dwf</td>
+<td>Model/vnd.dwf</td>
+</tr>
+<tr>
+<td>.dwf</td>
+<td>application/x-dwf</td>
+</tr>
+<tr>
+<td>.dwg</td>
+<td>application/x-dwg</td>
+</tr>
+<tr>
+<td>.dxb</td>
+<td>application/x-dxb</td>
+</tr>
+<tr>
+<td>.dxf</td>
+<td>application/x-dxf</td>
+</tr>
+<tr>
+<td>.edn</td>
+<td>application/vnd.adobe.edn</td>
+</tr>
+<tr>
+<td>.emf</td>
+<td>application/x-emf</td>
+</tr>
+<tr>
+<td>.eml</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.ent</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.epi</td>
+<td>application/x-epi</td>
+</tr>
+<tr>
+<td>.eps</td>
+<td>application/x-ps</td>
+</tr>
+<tr>
+<td>.eps</td>
+<td>application/postscript</td>
+</tr>
+<tr>
+<td>.etd</td>
+<td>application/x-ebx</td>
+</tr>
+<tr>
+<td>.exe</td>
+<td>application/x-msdownload</td>
+</tr>
+<tr>
+<td>.fax</td>
+<td>image/fax</td>
+</tr>
+<tr>
+<td>.fdf</td>
+<td>application/vnd.fdf</td>
+</tr>
+<tr>
+<td>.fif</td>
+<td>application/fractals</td>
+</tr>
+<tr>
+<td>.fo</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.frm</td>
+<td>application/x-frm</td>
+</tr>
+<tr>
+<td>.g4</td>
+<td>application/x-g4</td>
+</tr>
+<tr>
+<td>.gbr</td>
+<td>application/x-gbr</td>
+</tr>
+<tr>
+<td>.gif</td>
+<td>image/gif</td>
+</tr>
+<tr>
+<td>.gl2</td>
+<td>application/x-gl2</td>
+</tr>
+<tr>
+<td>.gp4</td>
+<td>application/x-gp4</td>
+</tr>
+<tr>
+<td>.hgl</td>
+<td>application/x-hgl</td>
+</tr>
+<tr>
+<td>.hmr</td>
+<td>application/x-hmr</td>
+</tr>
+<tr>
+<td>.hpg</td>
+<td>application/x-hpgl</td>
+</tr>
+<tr>
+<td>.hpl</td>
+<td>application/x-hpl</td>
+</tr>
+<tr>
+<td>.hqx</td>
+<td>application/mac-binhex40</td>
+</tr>
+<tr>
+<td>.hrf</td>
+<td>application/x-hrf</td>
+</tr>
+<tr>
+<td>.hta</td>
+<td>application/hta</td>
+</tr>
+<tr>
+<td>.htc</td>
+<td>text/x-component</td>
+</tr>
+<tr>
+<td>.htm</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.html</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.htt</td>
+<td>text/webviewhtml</td>
+</tr>
+<tr>
+<td>.htx</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.icb</td>
+<td>application/x-icb</td>
+</tr>
+<tr>
+<td>.ico</td>
+<td>image/x-icon</td>
+</tr>
+<tr>
+<td>.ico</td>
+<td>application/x-ico</td>
+</tr>
+<tr>
+<td>.iff</td>
+<td>application/x-iff</td>
+</tr>
+<tr>
+<td>.ig4</td>
+<td>application/x-g4</td>
+</tr>
+<tr>
+<td>.igs</td>
+<td>application/x-igs</td>
+</tr>
+<tr>
+<td>.iii</td>
+<td>application/x-iphone</td>
+</tr>
+<tr>
+<td>.img</td>
+<td>application/x-img</td>
+</tr>
+<tr>
+<td>.ins</td>
+<td>application/x-internet-signup</td>
+</tr>
+<tr>
+<td>.isp</td>
+<td>application/x-internet-signup</td>
+</tr>
+<tr>
+<td>.IVF</td>
+<td>video/x-ivf</td>
+</tr>
+<tr>
+<td>.java</td>
+<td>java/*</td>
+</tr>
+<tr>
+<td>.jfif</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpe</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpe</td>
+<td>application/x-jpe</td>
+</tr>
+<tr>
+<td>.jpeg</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpg</td>
+<td>image/jpeg</td>
+</tr>
+<tr>
+<td>.jpg</td>
+<td>application/x-jpg</td>
+</tr>
+<tr>
+<td>.js</td>
+<td>application/x-javascript</td>
+</tr>
+<tr>
+<td>.jsp</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.la1</td>
+<td>audio/x-liquid-file</td>
+</tr>
+<tr>
+<td>.lar</td>
+<td>application/x-laplayer-reg</td>
+</tr>
+<tr>
+<td>.latex</td>
+<td>application/x-latex</td>
+</tr>
+<tr>
+<td>.lavs</td>
+<td>audio/x-liquid-secure</td>
+</tr>
+<tr>
+<td>.lbm</td>
+<td>application/x-lbm</td>
+</tr>
+<tr>
+<td>.lmsff</td>
+<td>audio/x-la-lms</td>
+</tr>
+<tr>
+<td>.ls</td>
+<td>application/x-javascript</td>
+</tr>
+<tr>
+<td>.ltr</td>
+<td>application/x-ltr</td>
+</tr>
+<tr>
+<td>.m1v</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.m2v</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.m3u</td>
+<td>audio/mpegurl</td>
+</tr>
+<tr>
+<td>.m4e</td>
+<td>video/mpeg4</td>
+</tr>
+<tr>
+<td>.mac</td>
+<td>application/x-mac</td>
+</tr>
+<tr>
+<td>.man</td>
+<td>application/x-troff-man</td>
+</tr>
+<tr>
+<td>.math</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.mdb</td>
+<td>application/msaccess</td>
+</tr>
+<tr>
+<td>.mdb</td>
+<td>application/x-mdb</td>
+</tr>
+<tr>
+<td>.mfp</td>
+<td>application/x-shockwave-flash</td>
+</tr>
+<tr>
+<td>.mht</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.mhtml</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.mi</td>
+<td>application/x-mi</td>
+</tr>
+<tr>
+<td>.mid</td>
+<td>audio/mid</td>
+</tr>
+<tr>
+<td>.midi</td>
+<td>audio/mid</td>
+</tr>
+<tr>
+<td>.mil</td>
+<td>application/x-mil</td>
+</tr>
+<tr>
+<td>.mml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.mnd</td>
+<td>audio/x-musicnet-download</td>
+</tr>
+<tr>
+<td>.mns</td>
+<td>audio/x-musicnet-stream</td>
+</tr>
+<tr>
+<td>.mocha</td>
+<td>application/x-javascript</td>
+</tr>
+<tr>
+<td>.movie</td>
+<td>video/x-sgi-movie</td>
+</tr>
+<tr>
+<td>.mp1</td>
+<td>audio/mp1</td>
+</tr>
+<tr>
+<td>.mp2</td>
+<td>audio/mp2</td>
+</tr>
+<tr>
+<td>.mp2v</td>
+<td>video/mpeg</td>
+</tr>
+<tr>
+<td>.mp3</td>
+<td>audio/mp3</td>
+</tr>
+<tr>
+<td>.mp4</td>
+<td>video/mpeg4</td>
+</tr>
+<tr>
+<td>.mpa</td>
+<td>video/x-mpg</td>
+</tr>
+<tr>
+<td>.mpd</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mpe</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.mpeg</td>
+<td>video/mpg</td>
+</tr>
+<tr>
+<td>.mpg</td>
+<td>video/mpg</td>
+</tr>
+<tr>
+<td>.mpga</td>
+<td>audio/rn-mpeg</td>
+</tr>
+<tr>
+<td>.mpp</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mps</td>
+<td>video/x-mpeg</td>
+</tr>
+<tr>
+<td>.mpt</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mpv</td>
+<td>video/mpg</td>
+</tr>
+<tr>
+<td>.mpv2</td>
+<td>video/mpeg</td>
+</tr>
+<tr>
+<td>.mpw</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mpx</td>
+<td>application/vnd.ms-project</td>
+</tr>
+<tr>
+<td>.mtx</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.mxp</td>
+<td>application/x-mmxp</td>
+</tr>
+<tr>
+<td>.net</td>
+<td>image/pnetvue</td>
+</tr>
+<tr>
+<td>.nrf</td>
+<td>application/x-nrf</td>
+</tr>
+<tr>
+<td>.nws</td>
+<td>message/rfc822</td>
+</tr>
+<tr>
+<td>.odc</td>
+<td>text/x-ms-odc</td>
+</tr>
+<tr>
+<td>.out</td>
+<td>application/x-out</td>
+</tr>
+<tr>
+<td>.p10</td>
+<td>application/pkcs10</td>
+</tr>
+<tr>
+<td>.p12</td>
+<td>application/x-pkcs12</td>
+</tr>
+<tr>
+<td>.p7b</td>
+<td>application/x-pkcs7-certificates</td>
+</tr>
+<tr>
+<td>.p7c</td>
+<td>application/pkcs7-mime</td>
+</tr>
+<tr>
+<td>.p7m</td>
+<td>application/pkcs7-mime</td>
+</tr>
+<tr>
+<td>.p7r</td>
+<td>application/x-pkcs7-certreqresp</td>
+</tr>
+<tr>
+<td>.p7s</td>
+<td>application/pkcs7-signature</td>
+</tr>
+<tr>
+<td>.pc5</td>
+<td>application/x-pc5</td>
+</tr>
+<tr>
+<td>.pci</td>
+<td>application/x-pci</td>
+</tr>
+<tr>
+<td>.pcl</td>
+<td>application/x-pcl</td>
+</tr>
+<tr>
+<td>.pcx</td>
+<td>application/x-pcx</td>
+</tr>
+<tr>
+<td>.pdf</td>
+<td>application/pdf</td>
+</tr>
+<tr>
+<td>.pdf</td>
+<td>application/pdf</td>
+</tr>
+<tr>
+<td>.pdx</td>
+<td>application/vnd.adobe.pdx</td>
+</tr>
+<tr>
+<td>.pfx</td>
+<td>application/x-pkcs12</td>
+</tr>
+<tr>
+<td>.pgl</td>
+<td>application/x-pgl</td>
+</tr>
+<tr>
+<td>.pic</td>
+<td>application/x-pic</td>
+</tr>
+<tr>
+<td>.pko</td>
+<td>application/vnd.ms-pki.pko</td>
+</tr>
+<tr>
+<td>.pl</td>
+<td>application/x-perl</td>
+</tr>
+<tr>
+<td>.plg</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.pls</td>
+<td>audio/scpls</td>
+</tr>
+<tr>
+<td>.plt</td>
+<td>application/x-plt</td>
+</tr>
+<tr>
+<td>.png</td>
+<td>image/png</td>
+</tr>
+<tr>
+<td>.png</td>
+<td>application/x-png</td>
+</tr>
+<tr>
+<td>.pot</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppa</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppm</td>
+<td>application/x-ppm</td>
+</tr>
+<tr>
+<td>.pps</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppt</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.ppt</td>
+<td>application/x-ppt</td>
+</tr>
+<tr>
+<td>.pr</td>
+<td>application/x-pr</td>
+</tr>
+<tr>
+<td>.prf</td>
+<td>application/pics-rules</td>
+</tr>
+<tr>
+<td>.prn</td>
+<td>application/x-prn</td>
+</tr>
+<tr>
+<td>.prt</td>
+<td>application/x-prt</td>
+</tr>
+<tr>
+<td>.ps</td>
+<td>application/x-ps</td>
+</tr>
+<tr>
+<td>.ps</td>
+<td>application/postscript</td>
+</tr>
+<tr>
+<td>.ptn</td>
+<td>application/x-ptn</td>
+</tr>
+<tr>
+<td>.pwz</td>
+<td>application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td>.r3t</td>
+<td>text/vnd.rn-realtext3d</td>
+</tr>
+<tr>
+<td>.ra</td>
+<td>audio/vnd.rn-realaudio</td>
+</tr>
+<tr>
+<td>.ram</td>
+<td>audio/x-pn-realaudio</td>
+</tr>
+<tr>
+<td>.ras</td>
+<td>application/x-ras</td>
+</tr>
+<tr>
+<td>.rat</td>
+<td>application/rat-file</td>
+</tr>
+<tr>
+<td>.rdf</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.rec</td>
+<td>application/vnd.rn-recording</td>
+</tr>
+<tr>
+<td>.red</td>
+<td>application/x-red</td>
+</tr>
+<tr>
+<td>.rgb</td>
+<td>application/x-rgb</td>
+</tr>
+<tr>
+<td>.rjs</td>
+<td>application/vnd.rn-realsystem-rjs</td>
+</tr>
+<tr>
+<td>.rjt</td>
+<td>application/vnd.rn-realsystem-rjt</td>
+</tr>
+<tr>
+<td>.rlc</td>
+<td>application/x-rlc</td>
+</tr>
+<tr>
+<td>.rle</td>
+<td>application/x-rle</td>
+</tr>
+<tr>
+<td>.rm</td>
+<td>application/vnd.rn-realmedia</td>
+</tr>
+<tr>
+<td>.rmf</td>
+<td>application/vnd.adobe.rmf</td>
+</tr>
+<tr>
+<td>.rmi</td>
+<td>audio/mid</td>
+</tr>
+<tr>
+<td>.rmj</td>
+<td>application/vnd.rn-realsystem-rmj</td>
+</tr>
+<tr>
+<td>.rmm</td>
+<td>audio/x-pn-realaudio</td>
+</tr>
+<tr>
+<td>.rmp</td>
+<td>application/vnd.rn-rn_music_package</td>
+</tr>
+<tr>
+<td>.rms</td>
+<td>application/vnd.rn-realmedia-secure</td>
+</tr>
+<tr>
+<td>.rmvb</td>
+<td>application/vnd.rn-realmedia-vbr</td>
+</tr>
+<tr>
+<td>.rmx</td>
+<td>application/vnd.rn-realsystem-rmx</td>
+</tr>
+<tr>
+<td>.rnx</td>
+<td>application/vnd.rn-realplayer</td>
+</tr>
+<tr>
+<td>.rp</td>
+<td>image/vnd.rn-realpix</td>
+</tr>
+<tr>
+<td>.rpm</td>
+<td>audio/x-pn-realaudio-plugin</td>
+</tr>
+<tr>
+<td>.rsml</td>
+<td>application/vnd.rn-rsml</td>
+</tr>
+<tr>
+<td>.rt</td>
+<td>text/vnd.rn-realtext</td>
+</tr>
+<tr>
+<td>.rtf</td>
+<td>application/msword</td>
+</tr>
+<tr>
+<td>.rtf</td>
+<td>application/x-rtf</td>
+</tr>
+<tr>
+<td>.rv</td>
+<td>video/vnd.rn-realvideo</td>
+</tr>
+<tr>
+<td>.sam</td>
+<td>application/x-sam</td>
+</tr>
+<tr>
+<td>.sat</td>
+<td>application/x-sat</td>
+</tr>
+<tr>
+<td>.sdp</td>
+<td>application/sdp</td>
+</tr>
+<tr>
+<td>.sdw</td>
+<td>application/x-sdw</td>
+</tr>
+<tr>
+<td>.sit</td>
+<td>application/x-stuffit</td>
+</tr>
+<tr>
+<td>.slb</td>
+<td>application/x-slb</td>
+</tr>
+<tr>
+<td>.sld</td>
+<td>application/x-sld</td>
+</tr>
+<tr>
+<td>.slk</td>
+<td>drawing/x-slk</td>
+</tr>
+<tr>
+<td>.smi</td>
+<td>application/smil</td>
+</tr>
+<tr>
+<td>.smil</td>
+<td>application/smil</td>
+</tr>
+<tr>
+<td>.smk</td>
+<td>application/x-smk</td>
+</tr>
+<tr>
+<td>.snd</td>
+<td>audio/basic</td>
+</tr>
+<tr>
+<td>.sol</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>.sor</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>.spc</td>
+<td>application/x-pkcs7-certificates</td>
+</tr>
+<tr>
+<td>.spl</td>
+<td>application/futuresplash</td>
+</tr>
+<tr>
+<td>.spp</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.ssm</td>
+<td>application/streamingmedia</td>
+</tr>
+<tr>
+<td>.sst</td>
+<td>application/vnd.ms-pki.certstore</td>
+</tr>
+<tr>
+<td>.stl</td>
+<td>application/vnd.ms-pki.stl</td>
+</tr>
+<tr>
+<td>.stm</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.sty</td>
+<td>application/x-sty</td>
+</tr>
+<tr>
+<td>.svg</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.swf</td>
+<td>application/x-shockwave-flash</td>
+</tr>
+<tr>
+<td>.tdf</td>
+<td>application/x-tdf</td>
+</tr>
+<tr>
+<td>.tg4</td>
+<td>application/x-tg4</td>
+</tr>
+<tr>
+<td>.tga</td>
+<td>application/x-tga</td>
+</tr>
+<tr>
+<td>.tif</td>
+<td>image/tiff</td>
+</tr>
+<tr>
+<td>.tif</td>
+<td>application/x-tif</td>
+</tr>
+<tr>
+<td>.tiff</td>
+<td>image/tiff</td>
+</tr>
+<tr>
+<td>.tld</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.top</td>
+<td>drawing/x-top</td>
+</tr>
+<tr>
+<td>.torrent</td>
+<td>application/x-bittorrent</td>
+</tr>
+<tr>
+<td>.tsd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.txt</td>
+<td>text/plain</td>
+</tr>
+<tr>
+<td>.uin</td>
+<td>application/x-icq</td>
+</tr>
+<tr>
+<td>.uls</td>
+<td>text/iuls</td>
+</tr>
+<tr>
+<td>.vcf</td>
+<td>text/x-vcard</td>
+</tr>
+<tr>
+<td>.vda</td>
+<td>application/x-vda</td>
+</tr>
+<tr>
+<td>.vdx</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.vpg</td>
+<td>application/x-vpeg005</td>
+</tr>
+<tr>
+<td>.vsd</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vsd</td>
+<td>application/x-vsd</td>
+</tr>
+<tr>
+<td>.vss</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vst</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vst</td>
+<td>application/x-vst</td>
+</tr>
+<tr>
+<td>.vsw</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vsx</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vtx</td>
+<td>application/vnd.visio</td>
+</tr>
+<tr>
+<td>.vxml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.wav</td>
+<td>audio/wav</td>
+</tr>
+<tr>
+<td>.wax</td>
+<td>audio/x-ms-wax</td>
+</tr>
+<tr>
+<td>.wb1</td>
+<td>application/x-wb1</td>
+</tr>
+<tr>
+<td>.wb2</td>
+<td>application/x-wb2</td>
+</tr>
+<tr>
+<td>.wb3</td>
+<td>application/x-wb3</td>
+</tr>
+<tr>
+<td>.wbmp</td>
+<td>image/vnd.wap.wbmp</td>
+</tr>
+<tr>
+<td>.wiz</td>
+<td>application/msword</td>
+</tr>
+<tr>
+<td>.wk3</td>
+<td>application/x-wk3</td>
+</tr>
+<tr>
+<td>.wk4</td>
+<td>application/x-wk4</td>
+</tr>
+<tr>
+<td>.wkq</td>
+<td>application/x-wkq</td>
+</tr>
+<tr>
+<td>.wks</td>
+<td>application/x-wks</td>
+</tr>
+<tr>
+<td>.wm</td>
+<td>video/x-ms-wm</td>
+</tr>
+<tr>
+<td>.wma</td>
+<td>audio/x-ms-wma</td>
+</tr>
+<tr>
+<td>.wmd</td>
+<td>application/x-ms-wmd</td>
+</tr>
+<tr>
+<td>.wmf</td>
+<td>application/x-wmf</td>
+</tr>
+<tr>
+<td>.wml</td>
+<td>text/vnd.wap.wml</td>
+</tr>
+<tr>
+<td>.wmv</td>
+<td>video/x-ms-wmv</td>
+</tr>
+<tr>
+<td>.wmx</td>
+<td>video/x-ms-wmx</td>
+</tr>
+<tr>
+<td>.wmz</td>
+<td>application/x-ms-wmz</td>
+</tr>
+<tr>
+<td>.wp6</td>
+<td>application/x-wp6</td>
+</tr>
+<tr>
+<td>.wpd</td>
+<td>application/x-wpd</td>
+</tr>
+<tr>
+<td>.wpg</td>
+<td>application/x-wpg</td>
+</tr>
+<tr>
+<td>.wpl</td>
+<td>application/vnd.ms-wpl</td>
+</tr>
+<tr>
+<td>.wq1</td>
+<td>application/x-wq1</td>
+</tr>
+<tr>
+<td>.wr1</td>
+<td>application/x-wr1</td>
+</tr>
+<tr>
+<td>.wri</td>
+<td>application/x-wri</td>
+</tr>
+<tr>
+<td>.wrk</td>
+<td>application/x-wrk</td>
+</tr>
+<tr>
+<td>.ws</td>
+<td>application/x-ws</td>
+</tr>
+<tr>
+<td>.ws2</td>
+<td>application/x-ws</td>
+</tr>
+<tr>
+<td>.wsc</td>
+<td>text/scriptlet</td>
+</tr>
+<tr>
+<td>.wsdl</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.wvx</td>
+<td>video/x-ms-wvx</td>
+</tr>
+<tr>
+<td>.xdp</td>
+<td>application/vnd.adobe.xdp</td>
+</tr>
+<tr>
+<td>.xdr</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xfd</td>
+<td>application/vnd.adobe.xfd</td>
+</tr>
+<tr>
+<td>.xfdf</td>
+<td>application/vnd.adobe.xfdf</td>
+</tr>
+<tr>
+<td>.xhtml</td>
+<td>text/html</td>
+</tr>
+<tr>
+<td>.xls</td>
+<td>application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td>.xls</td>
+<td>application/x-xls</td>
+</tr>
+<tr>
+<td>.xlw</td>
+<td>application/x-xlw</td>
+</tr>
+<tr>
+<td>.xml</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xpl</td>
+<td>audio/scpls</td>
+</tr>
+<tr>
+<td>.xq</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xql</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xquery</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xsd</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xsl</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xslt</td>
+<td>text/xml</td>
+</tr>
+<tr>
+<td>.xwd</td>
+<td>application/x-xwd</td>
+</tr>
+<tr>
+<td>.x_b</td>
+<td>application/x-x_b</td>
+</tr>
+<tr>
+<td>.sis</td>
+<td>application/vnd.symbian.install</td>
+</tr>
+<tr>
+<td>.sisx</td>
+<td>application/vnd.symbian.install</td>
+</tr>
+<tr>
+<td>.x_t</td>
+<td>application/x-x_t</td>
+</tr>
+<tr>
+<td>.ipa</td>
+<td>application/vnd.iphone</td>
+</tr>
+<tr>
+<td>.apk</td>
+<td>application/vnd.android.package-archive</td>
+</tr>
+<tr>
+<td>.xap</td>
+<td>application/x-silverlight-app</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/asp-net/">asp.net</a>
+            
+              <a href="/tags/c/">c#</a>
+            
+              <a href="/tags/IIS/">IIS</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2016/06/29/jquery-load-page/">
+        <span class="next-text nav-default">JQuery load方法加载页面内容问题</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>

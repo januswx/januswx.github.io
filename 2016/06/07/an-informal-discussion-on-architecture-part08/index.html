@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="架构漫谈（八）：从架构的角度看如何写好代码"/>
+
+
+
+
+  <meta name="keywords" content="架构,好文收藏,架构漫谈," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Learn2think">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.4.x" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part08/"/>
+
+
+<meta name="description" content="原文链接 作者：王概凯 发布于 2016年4月5日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第八篇，作者Kevin举例介绍了如何写好代码。当我们有了好的架构，那就需要考虑如何将架构落地，而这个时候，代码就显得无比重要了！千万不要让代码成为架构扩展的瓶颈。">
+<meta name="keywords" content="架构,好文收藏,架构漫谈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构漫谈（八）：从架构的角度看如何写好代码">
+<meta property="og:url" content="http://yoursite.com/2016/06/07/an-informal-discussion-on-architecture-part08/index.html">
+<meta property="og:site_name" content="Learn2think">
+<meta property="og:description" content="原文链接 作者：王概凯 发布于 2016年4月5日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第八篇，作者Kevin举例介绍了如何写好代码。当我们有了好的架构，那就需要考虑如何将架构落地，而这个时候，代码就显得无比重要了！千万不要让代码成为架构扩展的瓶颈。">
+<meta property="og:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/020.png">
+<meta property="og:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/021.png">
+<meta property="og:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/022.jpg">
+<meta property="og:updated_time" content="2016-06-09T15:14:47.881Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="架构漫谈（八）：从架构的角度看如何写好代码">
+<meta name="twitter:description" content="原文链接 作者：王概凯 发布于 2016年4月5日 架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。 本文是漫谈架构专栏的第八篇，作者Kevin举例介绍了如何写好代码。当我们有了好的架构，那就需要考虑如何将架构落地，而这个时候，代码就显得无比重要了！千万不要让代码成为架构扩展的瓶颈。">
+<meta name="twitter:image" content="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/020.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.4.x" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+
+<script>
+  var CONFIG = {
+    search: true,
+    searchPath: "/search.xml",
+    fancybox: true,
+    toc: true,
+  }
+</script>
+
+
+
+
+  
+
+
+
+    <title> 架构漫谈（八）：从架构的角度看如何写好代码 · Learn2think </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">Learn2think</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">Learn2think</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+      
+        <li class="menu-search">
+          <form>
+            <i class="iconfont icon-search" id="open-search"></i>
+            <input type="text" class="search-input" id="search-input" />
+            <i class="iconfont icon-close" id="close-search"></i>
+          </form>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          架构漫谈（八）：从架构的角度看如何写好代码
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016年6月7日
+        </span>
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么叫业务逻辑？"><span class="toc-text">什么叫业务逻辑？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这么做的好处有哪些呢？"><span class="toc-text">这么做的好处有哪些呢？</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p><a href="http://www.infoq.com/cn/articles/an-informal-discussion-on-architecture-part08" target="_blank" rel="external">原文链接</a></p>
+<p>作者：王概凯 发布于 2016年4月5日</p>
+<p>架构漫谈是由资深架构师王概凯Kevin执笔的系列专栏，专栏将会以Kevin的架构经验为基础，逐步讨论什么是架构、怎样做好架构、软件架构如何落地、如何写好程序等问题。</p>
+<p><strong>本文是漫谈架构专栏的第八篇</strong>，作者Kevin举例介绍了如何写好代码。当我们有了好的架构，那就需要考虑如何将架构落地，而这个时候，代码就显得无比重要了！千万不要让代码成为架构扩展的瓶颈。文中作者提到了代码架构，细细品味吧。</p>
+<p>在第六篇文章中，我们得出一个结论，软件架构实际上包括了：代码架构，以及承载代码运行的硬件部署架构。实际上，硬件部署架构最终还是由代码的架构来决定。因为代码架构不合理，是无法把一个运行单元分拆出多个来的，那么硬件架构能分拆的就非常的有限，整个系统最终很难长的更大。</p>
+<a id="more"></a>
+<p>所以我们经常会听说，<strong>重写代码，推翻原有架构，重新设计等等说法，来说明架构的进化。这实际上就是当初为了完成任务，没有充分思考所带来的后果。</strong>这也并不是架构进化的事情，而是个人对问题领域的逐渐深入理解的过程。所以有必要再讨论一下，代码的架构应该是怎样的。</p>
+<p>本文会在之前几篇文章的基础上，进一步探讨如何把架构的思考进行落地，细化到我们代码的实践当中，尽量不要让代码成为系统长大的瓶颈，降低架构分拆的成本。</p>
+<p>在前面我们提到，<strong>软件实际上是对现实生活的模拟，虚拟化</strong>。这是一个非常重要的前提，直接决定了我们的代码应该分为几部分。结合每个部署单元所承担的责任，可以明确的拆分为两个不同的责任：</p>
+<ol>
+<li>表达业务逻辑的代码。很多人把这部分叫做Domain Logic，或者叫Domain Model。这部分实际是来源于生活的，必须保持和现实生活中的切分一致，并非人为的抽象而成。</li>
+<li>对用户提供访问并保存业务逻辑运行结果的代码。计算机的状态保存有一个缺陷，本机保留业务运行结果有很大的问题，一般都在外存储设备上保存，也便于扩展。</li>
+</ol>
+<p>所以单个部署单元的代码可以分为两个部分，如下图所示：</p>
+<p><img src="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/020.png" alt="img"></p>
+<p>从这个图中可以看出，软件代码的相关利益人为运行时的访问人员和存储设备。而service的代码是最复杂的，需要服务于三方，代码人员的负担是最重的。为了把这三方的变化对service的影响降到最低，对于service还必须进一步的分拆为三个部分，让每一个部分都能够独立的变化，这样这三方的变化就不会产生连锁响应，降低成本。如下图所示：</p>
+<p><img src="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/021.png" alt="img"></p>
+<p>这样，就划分成了几个责任：</p>
+<ol>
+<li>Service就专注于user的需求，并组合Glue Code提供的服务完成需求。</li>
+<li>Glue Code专注于组合business的调用，管理Business里面对象的生命周期，并且通过Repository保存或加载Business的状态</li>
+<li>Business专注于实现业务的核心模型。</li>
+<li>Repository专注于数据的保存，并和存储设备一一对应。</li>
+</ol>
+<p>大家注意看，还是树形架构。并且左侧的主要需要计算机的相关理论知识，并且要直接面对用户的需求。右侧的更多的需要面对业务的核心。只要这几块的开发人员互相商量好了接口定义，这几个部分的开发就可以并行的进行，极大的提升开发的效率，缩短开发的时间。要做好这几部分，还需要注意，<strong>逻辑只允许存在于Business中，Service、Glue Code、Repository都不允许存在业务逻辑</strong>。为什么呢？首先我们来看看什么叫业务逻辑。</p>
+<h2 id="什么叫业务逻辑？"><a href="#什么叫业务逻辑？" class="headerlink" title="什么叫业务逻辑？"></a>什么叫业务逻辑？</h2><p>首先这个定义的前提是指软件代码中的逻辑，不是现实生活中的逻辑。<strong>在软件代码中，不需缩进和计算的顺序调用，包括缩进的代码目的是catch exception的，都不算逻辑，除此以外都是逻辑</strong>。以下用严格的顺序调用来指代这种代码。因为顺序调用是计算机的特性，由编译器来决定的，当然最本质的是因为我们计算的基础都是图灵机。在现实生活中，顺序调用也是逻辑，大家不要和我们这里说的业务逻辑相混淆。</p>
+<p>为什么说除了Business代码中有逻辑以外，其他地方不能有逻辑呢？ 我们每个部分分别分析：</p>
+<ol>
+<li>如果service里面不是严格的顺序调用，有很多分支，那么说明这个service做了两件或者两件以上的事情。必须把这个service分拆，确保每个service只做一件事情。因为如果不这么分拆的话，一旦这个service中的某各部分发生变动，其他的部分的执行必定会受影响。而确定到底有哪些影响的沟通成本非常高，其他相关利益方没有动力去配合，我们往往不会投入精力仔细评估。最后上线会出很多不可预料的问题，最终会导致损失用户的利益，并且肯定会导致返工，损坏自己的利益。如果是有计算的逻辑的话，比如受益计算，订单金额计算等，那么这部分应该是Business代码需要完成的，不能交给service代码来实现。</li>
+<li>Glue Code里面如果不是严格的顺序调用，同理会和service一样遇到同样的问题。</li>
+<li>Repository里面如果不是严格的顺序调用，包括存储访问的代码里面（比如SQL），会导致逻辑进入到存储设备中。存储设备的主要目的是拿来存储的，一旦变成了逻辑计算的主体，就会导致存储设备无法通过增加机器的方式横向扩展长大。这个时候就没有架构了，只能换性能更好的机器，这个叫scale up。只有scale out才能算架构。</li>
+</ol>
+<p>以上都会导致架构无法快速的横向扩展和分拆，并且增加了修改的成本，这些是不符合开发人员以及业务的利益的。</p>
+<h2 id="这么做的好处有哪些呢？"><a href="#这么做的好处有哪些呢？" class="headerlink" title="这么做的好处有哪些呢？"></a>这么做的好处有哪些呢？</h2><ol>
+<li>Service、Glue Code、Repository里面的代码是严格的顺序调用，那么这些代码只要做连通性测试即可，不需要单元测试。因为这些代码都需要和很多上下文打交道，很难做单元测试。这样才算是真正的组合。</li>
+<li>Business不访问任何上下文，不访问任何具体的设备，所以这部分代码是非常容易些单元测试的，并且单元测试必须100%覆盖。因为其他地方没有业务逻辑，所以一旦有问题，就可以断定是Model的问题，单元测试肯定可以发现。如果单元测试没有发现问题，那么单元测试一定有问题。线上问题的模拟也就变得非常的简单，单元测试也能够得到进一步的补充。</li>
+<li>Repository很容易按照存储设备本身的最小访问粒度来完成工作，比如DB，完全可以做到单表访问。因为这个时候存储设备只关心存取数据，完全和业务没有关系。做表的分拆也是非常容易的事情，存储设备通过增加机器就可以横向扩展长大。很多人会担心说，没有了join，访问DB的次数是不是更多了，会导致性能下降？ 按照现在网络的条件，网络访问和Disk IO访问的差距已经不大了，合理的设计下，多访问几次DB并不会导致这个问题。另外如果多台DB的话，还能通过并行加速访问。</li>
+<li>由于Service、Glue Code、Repository代码简单了，才可以让我们的开发人员投入更多的时间研究业务，毕竟这部分才是软件所真正服务的对象。</li>
+</ol>
+<p>我们再来看一个实际的例子，如下图所示：</p>
+<p><img src="http://cdn2.infoqstatic.com/statics_s1_20160601-0225u2/resource/articles/an-informal-discussion-on-architecture-part08/zh/resources/022.jpg" alt="img"></p>
+<p>Manager类实际就是Glue Code。有几个注意点需要说明一下：</p>
+<ol>
+<li>不能把Business Model当做数据对象来处理，Model关心的实际上是业务行为，数据只是是这些行为的结果。所以Glue Code需要把Model转换为Entity，Entity和存储设备里面的存储粒度一一对应。比如在DB中，每个Entity对应一张表，并且跟着表的变化而变化，这样就保证存储的变更不会影响Model。同样Service和用户之间的数据交互，也是不会和Model之间相关的，确保用户的需求变化，不会影响到Model。因为用户的需求变化是最频繁的，没有逻辑，可以让我快速的满足业务的需求。</li>
+<li>在Service这里，最好不要考虑代码重用。因为当多个不同的角色访问同一个接口，一旦某个角色的需求发生了变化，就会要求开发人员去修改。而这个修改往往会影响到其他的角色，需要这些角色一起配合来确定是否受影响，但是这些角色因为没有需求，往往不会配合。这样就给开发人员造成了很多不必要的沟通，成本是非常高的。最终都会导致线上Bug，影响最终的用户。所以尽量给不同的角色不同的Service，避免重用，降低沟通成本。很多人会说这样Service不就太多了吗？ 这样Service注册，查找等管理需求就出现了，Service治理中心就是来解决这个问题的。因为Service里面没有逻辑，所以开发和管理非常的简单，可以快速应对业务的变化。我们只有更快地变，更容易的变，才能更好地应对变。</li>
+<li>Business Model是必须要重用的，一旦发现重用出现问题，那么说明Business Model的识别出现了问题，这是一个我们要重新思考Model的信号。Business Model必须是一个完美的树状，如果不是，也说明Model的识别出了问题。</li>
+</ol>
+<p>在实际操作中，Service、Glue Code、Repository不能有逻辑，实际上和很多人的观念是冲突的，认为这个根本做不到。做到这一点需要很多的学习成本，但是一定可以做得到。当发现做不到的时候，可以断定是业务的分析出了问题。比如不该合并的合并了，不该计算的计算了。这个问题一定有办法解决的，做不到都是理由，无非是想早点把自己的工作结束罢了。虽然刚开始会比较困难，一旦把这个观念变成自觉，开发的质量和效率马上就能高好几个级别。</p>
+<p>我的游泳教练曾和我说过这些话，我至今记忆犹新：“<strong>业余选手，越想从水里浮起来，就越想把头抬起来，身体反而沉下去。只有克服恐惧，把头往水里压下去，身体才能够从水里浮起来。真正专业的习惯往往是和我们日常的行为相反的</strong>”。</p>
+<p>我们真正想快速的完成代码工作，就要克服自己对时间的恐惧，真正的去研究业务的问题，相关stakeholder的利益，把这个变成我们的习惯。写代码的时候让该出现逻辑的地方出现逻辑，让不该出现的地方不能出现。一旦不该出现的地方出现了逻辑，那么要马上意识到，这个地方是一个坑，这个问题一定和业务的分析不透彻有关系。</p>
+<p>很多人可能会把这个做法和Martin Fowler曾经提出过充血模型和贫血模型来比较，和Domain Driven Design来比较，其实没有必要。这个分拆完全是从软件所解决的问题，根据软件架构推导出来的，很多地方和两位前辈的观点是一致的，但是并不完全等同。</p>
+<p>以上只是针对单一的Service部署单元的分析，扩展开去，对于其他的部署单元也是类似的。每个单元的下一级都可以认为是Repository，每个单元的上一级都可以认为是User。这些实践在我自己的项目中都有用到，非常的有效，迭代的速度非常的快。很多人担心Business Model建不好，其实没关系，刚开始可以粗糙一点，后续可以慢慢的完善。这个架构已经隔离好了每个部分的变化对其他部分的影响，变化成本都在可控的范围之内。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/架构/">架构</a>
+            
+              <a href="/tags/好文收藏/">好文收藏</a>
+            
+              <a href="/tags/架构漫谈/">架构漫谈</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/06/07/an-informal-discussion-on-architecture-part09/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">架构漫谈（九）：理清技术、业务和架构的关系</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/06/07/an-informal-discussion-on-architecture-part07/">
+        <span class="next-text nav-default">架构漫谈（七）：不要空设架构师这个职位，给他实权</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:janusyzh@outlook.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2015 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Janus</span>
+  </span>
+</div>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+
+  
+  
+
+
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.4.x"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.4.x"></script>
+
+    
+  <script type="text/html" id="search-result">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">
+          <a href="$url$" class="post-link">
+            $title$
+          </a>
+        </h1>
+      </header>
+      <div class="post-content">
+        $content$
+        <div class="read-more">
+          <a href="$url$" class="read-more-link">
+            阅读更多
+          </a>
+        </div>
+      </div>
+    </article>
+  </script>
+  <script type="text/html" id="no-search-result">
+    <div class="no-result">
+      <h2>No result found!</h2>
+    </div>
+  </script>
+  <script type="text/javascript" src="/js/src/search.js?v=2.4.x"></script>
+
+  </body>
+</html>
